@@ -1,5 +1,8 @@
 package com.iotek.hrmgr.entity;
-
+/*
+* 邮件接收者
+* 构造参数可以是：Visitor, Employee, Admin
+* */
 public class MailUser {
     public String name;
     public String mailAddress;

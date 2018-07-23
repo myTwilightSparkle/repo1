@@ -87,10 +87,12 @@ CREATE TABLE `employees` (
 DROP TABLE IF EXISTS `leave`;
 
 CREATE TABLE `leave` (
+  `leave_id` int(20) NOT NULL AUTO_INCREMENT,
   `employee_id` int(10) NOT NULL,
-  `start` datetime DEFAULT NULL COMMENT '申请开始时间',
-  `end` datetime DEFAULT NULL COMMENT '申请结束时间',
-  PRIMARY KEY (`employee_id`),
+  `start` date NOT NULL COMMENT '申请开始时间',
+  `end` date DEFAULT NULL COMMENT '申请结束时间',
+  PRIMARY KEY (`leave_id`),
+  KEY `employee_id` (`employee_id`),
   CONSTRAINT `leave_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -101,10 +103,12 @@ CREATE TABLE `leave` (
 DROP TABLE IF EXISTS `overtime`;
 
 CREATE TABLE `overtime` (
-  `employee_id` int(10) NOT NULL,
-  `start` datetime DEFAULT NULL COMMENT '加班申请开始时间',
-  `end` datetime DEFAULT NULL COMMENT '加班申请结束时间',
-  PRIMARY KEY (`employee_id`),
+  `overtime_id` int(20) NOT NULL AUTO_INCREMENT,
+  `employee_id` int(10) DEFAULT NULL,
+  `start` date DEFAULT NULL,
+  `end` date DEFAULT NULL,
+  PRIMARY KEY (`overtime_id`),
+  KEY `employee_id` (`employee_id`),
   CONSTRAINT `overtime_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -117,10 +121,14 @@ DROP TABLE IF EXISTS `positions`;
 CREATE TABLE `positions` (
   `position_id` int(10) NOT NULL AUTO_INCREMENT COMMENT '职位id',
   `name` varchar(50) NOT NULL,
-  `dept_id` int(11) NOT NULL,
+  `dept_id` int(10) NOT NULL,
+  `employee_id` int(10) DEFAULT NULL COMMENT '当前担任者',
   PRIMARY KEY (`position_id`),
   KEY `name` (`name`),
-  KEY `dept_id` (`dept_id`)
+  KEY `dept_id` (`dept_id`),
+  KEY `employee_id` (`employee_id`),
+  CONSTRAINT `positions_ibfk_1` FOREIGN KEY (`dept_id`) REFERENCES `depts` (`dept_id`),
+  CONSTRAINT `positions_ibfk_2` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `positions` */
@@ -160,11 +168,11 @@ CREATE TABLE `resumes` (
 
 /*Data for the table `resumes` */
 
-/*Table structure for table `rwd&pnt` */
+/*Table structure for table `rwd_pnt` */
 
-DROP TABLE IF EXISTS `rwd&pnt`;
+DROP TABLE IF EXISTS `rwd_pnt`;
 
-CREATE TABLE `rwd&pnt` (
+CREATE TABLE `rwd_pnt` (
   `rp_id` int(50) NOT NULL AUTO_INCREMENT COMMENT '奖惩记录id',
   `employee_id` int(10) NOT NULL,
   `date` date NOT NULL,
@@ -172,19 +180,23 @@ CREATE TABLE `rwd&pnt` (
   `fine` decimal(10,0) unsigned zerofill NOT NULL COMMENT '正罚负奖',
   PRIMARY KEY (`rp_id`),
   KEY `employee_id` (`employee_id`),
-  CONSTRAINT `rwd@0026pnt_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`)
+  CONSTRAINT `rwd_pnt_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `rwd&pnt` */
+/*Data for the table `rwd_pnt` */
 
 /*Table structure for table `salaries` */
 
 DROP TABLE IF EXISTS `salaries`;
 
 CREATE TABLE `salaries` (
+  `salary_id` int(20) NOT NULL AUTO_INCREMENT,
   `employee_id` int(10) NOT NULL,
-  `salary` decimal(10,0) unsigned zerofill NOT NULL COMMENT '工资',
-  PRIMARY KEY (`employee_id`),
+  `salary` decimal(10,0) NOT NULL,
+  `date` date NOT NULL COMMENT '发放日期',
+  `haspaid` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0未发放1已发放',
+  PRIMARY KEY (`salary_id`),
+  KEY `employee_id` (`employee_id`),
   KEY `salary` (`salary`),
   CONSTRAINT `salaries_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
