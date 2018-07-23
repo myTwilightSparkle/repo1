@@ -1,0 +1,7 @@
+2018/7/23
+整完springboot
+数据库表13张
+	游客visitors  员工employees  管理员admins  部门depts  职位positions  简历resumes  薪资salaries
+	奖惩rwd&pnt  招聘recruitment  培训training  出勤attendence  加班overtime  请假leave
+邮件test
+	可以发送模板邮件了
