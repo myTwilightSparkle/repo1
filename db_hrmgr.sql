@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v12.08 (64 bit)
-MySQL - 5.1.49-community : Database - db_hrmgr
+MySQL - 5.7.3-m13 : Database - db_hrmgr
 *********************************************************************
 */
 
@@ -31,20 +31,6 @@ CREATE TABLE `admins` (
 
 /*Data for the table `admins` */
 
-/*Table structure for table `attendence` */
-
-DROP TABLE IF EXISTS `attendence`;
-
-CREATE TABLE `attendence` (
-  `employee_id` int(10) NOT NULL,
-  `start` datetime DEFAULT NULL COMMENT '出勤开始时间',
-  `end` datetime DEFAULT NULL COMMENT '出勤结束时间',
-  PRIMARY KEY (`employee_id`),
-  CONSTRAINT `attendence_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `attendence` */
-
 /*Table structure for table `depts` */
 
 DROP TABLE IF EXISTS `depts`;
@@ -66,7 +52,7 @@ CREATE TABLE `employees` (
   `name` varchar(20) NOT NULL,
   `password` varchar(50) NOT NULL,
   `age` int(5) NOT NULL,
-  `gender` varchar(2) NOT NULL,
+  `gender` varchar(5) NOT NULL,
   `email` varchar(50) NOT NULL,
   `phone` varchar(20) NOT NULL,
   `address` varchar(100) NOT NULL,
@@ -77,6 +63,7 @@ CREATE TABLE `employees` (
   UNIQUE KEY `phone` (`phone`),
   KEY `dept_id` (`dept_id`),
   KEY `age` (`age`),
+  KEY `resigned` (`resigned`),
   CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`dept_id`) REFERENCES `depts` (`dept_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -150,24 +137,6 @@ CREATE TABLE `recruitment` (
 
 /*Data for the table `recruitment` */
 
-/*Table structure for table `resumes` */
-
-DROP TABLE IF EXISTS `resumes`;
-
-CREATE TABLE `resumes` (
-  `resume_id` int(30) NOT NULL AUTO_INCREMENT,
-  `visitor_id` int(10) NOT NULL,
-  `objective_id` int(10) DEFAULT NULL COMMENT '意向职位',
-  `content` varchar(800) DEFAULT NULL COMMENT '简历正文',
-  PRIMARY KEY (`resume_id`),
-  KEY `visitor_id` (`visitor_id`),
-  KEY `objective_id` (`objective_id`),
-  CONSTRAINT `resumes_ibfk_2` FOREIGN KEY (`objective_id`) REFERENCES `positions` (`position_id`),
-  CONSTRAINT `resumes_ibfk_1` FOREIGN KEY (`visitor_id`) REFERENCES `visitors` (`visitor_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `resumes` */
-
 /*Table structure for table `rwd_pnt` */
 
 DROP TABLE IF EXISTS `rwd_pnt`;
@@ -229,7 +198,7 @@ CREATE TABLE `visitors` (
   `name` varchar(20) NOT NULL,
   `password` varchar(50) NOT NULL,
   `age` int(5) NOT NULL,
-  `gender` varchar(2) NOT NULL,
+  `gender` varchar(5) NOT NULL,
   `email` varchar(50) NOT NULL,
   `phone` varchar(20) NOT NULL,
   `address` varchar(100) NOT NULL,
@@ -237,9 +206,11 @@ CREATE TABLE `visitors` (
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `phone` (`phone`),
   KEY `age` (`age`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 /*Data for the table `visitors` */
+
+insert  into `visitors`(`visitor_id`,`name`,`password`,`age`,`gender`,`email`,`phone`,`address`) values (1,'aa','aa',10,'man','xx','123456','xx'),(11,'bb','aa',10,'man','xx1','1234561','xx'),(12,'cc','aa',10,'man','xx2','1234562','xx'),(13,'dd','aa',10,'man','xx3','1234563','xx'),(14,'ee','aa',10,'man','xx4','1234564','xx'),(15,'ff','aa',10,'man','xx5','1234565','xx'),(16,'gg','aa',10,'man','xx6','1234566','xx'),(17,'hh','aa',10,'man','xx7','1234567','xx'),(18,'ii','aa',10,'man','xx8','1234568','xx'),(19,'jj','aa',10,'man','xx9','1234569','xx');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

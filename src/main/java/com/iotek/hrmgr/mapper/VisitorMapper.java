@@ -18,7 +18,9 @@ public interface VisitorMapper {
 
     public void insertVisitor(Visitor visitor);
 
-    // 根据id修改
+    /*
+    有id的Visitor
+     */
     public void updateVisitor(Visitor visitor);
 
     public void deleteVisitorById(int id);
