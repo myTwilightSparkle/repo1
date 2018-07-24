@@ -5,3 +5,10 @@
 	奖惩rwd&pnt  招聘recruitment  培训training  出勤attendence  加班overtime  请假leave
 邮件test
 	可以发送模板邮件了
+
+2018/7/24
+建完实体类
+整好了mapper
+搞好了分页插件
+随便写了点service
+测试了缓存但逻辑还没搞明白(清缓存/缓存和事务/几个用户同时搞)

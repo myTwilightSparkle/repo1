@@ -3,7 +3,7 @@ spring:
     active: dev
   datasource:
     username: root
-    password: 13611808583
+    password: root
     url: jdbc:mysql:///db_hrmgr
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
@@ -19,10 +19,13 @@ spring:
     testOnReturn: false
     poolPreparedStatements: true
     maxPoolPreparedStatementPerConnectionSize: 20
-    filters: stat,wall,Slf4jLogFilter
+    filters: stat,wall
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
     useGlobalDataSourceStat: true
 
 mybatis:
-  typeAliasesPackage: com.iotek.entity
-  mapperLocations: classpath:mapping/*.xml
+  typeAliasesPackage: com.iotek.hrmgr.entity
+  mapperLocations: classpath:mybatis/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl

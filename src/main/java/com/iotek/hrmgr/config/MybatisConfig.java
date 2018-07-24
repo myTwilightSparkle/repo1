@@ -1,20 +1,25 @@
 package com.iotek.hrmgr.config;
 
+import com.github.pagehelper.PageHelper;
 import org.apache.ibatis.session.Configuration;
 import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
 import org.springframework.context.annotation.Bean;
+
+import java.util.Properties;
 
 @org.springframework.context.annotation.Configuration
 public class MybatisConfig {
 
     @Bean
-    public ConfigurationCustomizer configurationCustomizer(){
-        return new ConfigurationCustomizer() {
-            @Override
-            public void customize(Configuration configuration) {
-                configuration.setMapUnderscoreToCamelCase(true);
-            }
-        };
+    public PageHelper pageHelper(){
+        PageHelper pageHelper = new PageHelper();
+        //添加配置，也可以指定文件路径
+        Properties p = new Properties();
+        p.setProperty("offsetAsPageNum", "true");
+        p.setProperty("rowBoundsWithCount", "true");
+        p.setProperty("reasonable", "true");
+        pageHelper.setProperties(p);
+        return pageHelper;
     }
 
 }
