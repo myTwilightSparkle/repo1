@@ -30,7 +30,7 @@ public interface EmployeeMapper {
     查询部门没走员工
     分页
      */
-    public List<Employee> selectEmployeesByDept(Dept dept, int currentPage);
+    //public List<Employee> selectEmployeesByDept(Dept dept, int currentPage);
 
     /*
     查询全部没走员工

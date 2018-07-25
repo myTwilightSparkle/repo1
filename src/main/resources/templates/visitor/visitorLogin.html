@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+        <html lang="en" xmlns:th="http//www.thymeleaf.org">
+<head>
+    <meta charset="UTF8">
+    <title>游客登录</title>
+
+    <script type="text/javascript">
+        var isCommitted = false;
+        function submit(){
+            if(isCommitted==false){
+                isCommitted = true;
+                return true;
+            }else{
+                return false;
+            }
+        }
+    </script>
+
+</head>
+<body>
+<center>
+    <h3>游客登录</h3><br>
+<div>
+    <form action="/sessions/create" method="post" onsubmit="return submit()">
+        <input type="text" placeholder="用户名" name="name"/><br>
+        <input type="password" placeholder="密码" name="password"/><br>
+        <input type="hidden" th:value="${session.loginToken}" name="loginToken">
+        <button type="submit">登录</button> <a href="/visitor/new">注册</a>
+    </form>
+
+    <p th:text="${#httpServletRequest.getAttribute('res')}"></p>
+</div>
+</center>
+</body>
+</html>

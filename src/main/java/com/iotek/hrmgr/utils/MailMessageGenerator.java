@@ -5,29 +5,36 @@ import org.springframework.mail.SimpleMailMessage;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
-public class MailMessageGenerator {
-    private static SimpleMailMessage message = new SimpleMailMessage();
 
+/*
+ *  生成message的工厂
+ *  用genMessage()方法
+ *  按这个格式解析字符串  *{subject @{param0}, @{param1}, ...}#{text @{param0}, @{param1}, ...}
+ *  params的格式   param0=value0, param1=value1, ...
+ *  内置parm: currentDate, toName
+ * */
+public class MailMessageGenerator {
+
+    private static SimpleMailMessage message = new SimpleMailMessage();
     private String template;
     private MailUser mailUser;
-    private Date date;
     private String fromUsername;
+    private Map<String, String> paramMap;
 
     static SimpleDateFormat sdf = new SimpleDateFormat("yy年MM月dd日 HH时mm分");
 
     private String subject = "";
     private String text = "";
 
-
-    public MailMessageGenerator(MailUser mailUser, Date date, String template, String fromUsername){
+    public MailMessageGenerator(MailUser mailUser, String fromUsername, String template, String... params){
         this.mailUser = mailUser;
-        this.template = template;
-        this.date = date;
         this.fromUsername = fromUsername;
+        this.template = template;
+        setMap(params);
     }
 
     public SimpleMailMessage genMessage(){
-        substitute();
+        substituteParams();
         setSubject();
         setText();
         message.setSubject(subject);
@@ -37,28 +44,31 @@ public class MailMessageGenerator {
         return message;
     }
 
-    /*
-    *   *{subject@{name}@{date}}#{text}
-    * */
+    private void setMap(String... params){
+        paramMap = new HashMap<String, String>();
+        paramMap.put("currentDate", sdf.format(new Date()));
+        paramMap.put("toName",mailUser.getName());
+        if (params == null || params.length == 0)
+            return;
+        for (String str:params){
+            String[] strs = str.split("=");
+            paramMap.put(strs[0],strs[1]);
+        }
+    }
 
-    private void substitute(){
-        String name = mailUser.getName();
-        String dateStr = sdf.format(date);
+    private void substituteParams(){
         String newTemplate = "";
         String[] strs = template.split("@");
+        newTemplate += strs[0];
+        strs = Arrays.copyOfRange(strs, 1,strs.length);
         Iterator<String> iter = Arrays.asList(strs).iterator();
         while(iter.hasNext()){
             String str = iter.next();
-            if (str.length()<7){
-                continue;
-            }
-            String str0 = str.substring(0,6);
-            if (str0.equals("{name}")){
-                newTemplate += name;
-                newTemplate += str.substring(6,str.length());
-            } else if(str0.equals("{date}")){
-                newTemplate += dateStr;
-                newTemplate += str.substring(6,str.length());
+            String str0 = insideBracket(str);
+            if (paramMap.containsKey(str0)){
+                String val = paramMap.get(str0);
+                String rm = str.substring(str0.length()+2);
+                newTemplate += val + rm;
             } else {
                 newTemplate += str;
             }
@@ -66,31 +76,39 @@ public class MailMessageGenerator {
         template = newTemplate;
     }
 
+    private String insideBracket(String str){
+        String str0 = "";
+        if (str.charAt(0)!='{'){
+            return str;
+        }
+        Stack stack = new Stack();
+        for (char c:str.toCharArray()){
+            if (c == '{') {
+                stack.push('{');
+            }
+            if (c == '}'){
+                stack.pop();
+            }
+            str0 += c;
+            if (stack.isEmpty()){
+                break;
+            }
+        }
+        if (str0.length()>1)
+            str0 = str0.substring(1,str0.length()-1);
+        return str0;
+    }
 
     private void setSubject(){
         String[] strs = template.split("\\u002A");
         List<String> ls = Arrays.asList(strs);
+        ls = ls.subList(1,ls.size());
         for (String str:ls){
-            if (ls.indexOf(str)<1){
+            if (str.length()>0&&str.charAt(0)!='{'){
                 continue;
             }
-            Stack stack = new Stack();
             if (str.length()>0){
-                for (char c:str.toCharArray()){
-                    if (c=='{'){
-                        stack.push('{');
-                    }if(c=='}'){
-                        stack.pop();
-                    }
-                    if (stack.isEmpty()){
-                        break;
-                    }
-                    subject += c;
-                }
-                subject = subject.substring(1,subject.length());
-                return;
-            } else {
-                continue;
+                subject = insideBracket(str);
             }
         }
     }
@@ -98,27 +116,13 @@ public class MailMessageGenerator {
     private void setText(){
         String[] strs = template.split("#");
         List<String> ls = Arrays.asList(strs);
+        ls = ls.subList(1,ls.size());
         for (String str:ls){
-            if (ls.indexOf(str)<1){
+            if (str.length()>0&&str.charAt(0)!='{'){
                 continue;
             }
-            Stack stack = new Stack();
             if (str.length()>0){
-                for (char c:str.toCharArray()){
-                    if (c=='{'){
-                        stack.push('{');
-                    }if(c=='}'){
-                        stack.pop();
-                    }
-                    if (stack.isEmpty()){
-                        break;
-                    }
-                    text += c;
-                }
-                text = text.substring(1,text.length());
-                return;
-            } else {
-                continue;
+                text = insideBracket(str);
             }
         }
     }

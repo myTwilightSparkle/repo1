@@ -11,4 +11,12 @@ public interface VisitorService {
 
     public Visitor getVisitor(Visitor visitor);
 
+    public Visitor login(Visitor visitor);
+
+    public Visitor signUp(Visitor visitor);
+
+    public void updateVisitor(Visitor visitor);
+
+    public void deleteVisitor(int id);
+
 }

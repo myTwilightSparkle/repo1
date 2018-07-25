@@ -12,11 +12,11 @@
         <result column="phone" property="phone" />
         <result column="address" property="address" />
 
-        <result column="dept_id" property="dept"/>
+        <!--<result column="dept_id" property="dept"/>
         <association property="dept" javaType="one.to.one.Teacher">
             <id column="dept_id" property="deptId"/>
             <result column="name" property="name"/>
-        </association>
+        </association>-->
 
     </resultMap>
 
