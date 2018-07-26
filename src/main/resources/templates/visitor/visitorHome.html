@@ -6,7 +6,34 @@
 </head>
 <body>
 <center>
-<h3>已登录</h3>
+    <h3>已登录</h3>
 </center>
+
+<div>
+    <ul>
+        <li><a href="#">我的简历</a></li>
+        <li><a href="#">创建简历</a></li>
+    </ul>
+</div>
+<div id="view">
+    <!--<div id="showResumes">
+        <div th:each="${resumes}"><a th:href="@{}" th:text="${}"/><a th:href="@">修改简历</a><a th:href="@">删除简历</a></div>
+    </div>
+    <div id="mkResume">
+        <form action="/resume" method="put">
+            <input type="text"/>
+            <input type="text"/>
+            <input type="submit" text="创建简历"/>
+            <button type="reset">重置</button>
+        </form>
+    </div>-->
+</div>
+<div>
+    <h5>招聘信息</h5>
+    <form action="/recruiment" method="get">
+        <input type="text" placeholder="请输入查询信息" name=""/><input type="submit" text="搜索"/>
+    </form>
+</div>
+
 </body>
 </html>

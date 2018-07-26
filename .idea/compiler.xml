@@ -22,18 +22,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="shirotest" />
-      </profile>
-      <profile default="false" name="Annotation profile for hrmgr" enabled="true">
-        <sourceOutputDir name="shirotest/target/generated-sources/annotations" />
-        <sourceTestOutputDir name="shirotest/target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
         <module name="hrmgr" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="hrmgr" target="1.5" />
+      <module name="hrmgr" target="1.8" />
       <module name="shirotest" target="1.5" />
     </bytecodeTargetLevel>
   </component>

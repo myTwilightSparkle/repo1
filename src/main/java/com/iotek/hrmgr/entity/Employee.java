@@ -5,14 +5,11 @@ package com.iotek.hrmgr.entity;
 public class Employee {
     private int employeeId;
     private String name;
-    private String password;
-    private int age;
-    private String gender;
-    private String email;
-    private String phone;
     private String address;
     private Dept dept;
     private boolean resigned;
+    private String role;
+    private String permission;
 
     public Employee() {
     }
@@ -33,44 +30,20 @@ public class Employee {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public String getRole() {
+        return role;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    public int getAge() {
-        return age;
+    public String getPermission() {
+        return permission;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPermission(String permission) {
+        this.permission = permission;
     }
 
     public String getAddress() {
@@ -102,14 +75,11 @@ public class Employee {
         return "Employee{" +
                 "employeeId=" + employeeId +
                 ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", age=" + age +
-                ", gender='" + gender + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
                 ", dept=" + dept +
                 ", resigned=" + resigned +
+                ", role='" + role + '\'' +
+                ", permission='" + permission + '\'' +
                 '}';
     }
 }

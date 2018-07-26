@@ -7,12 +7,6 @@ public class MailUser {
     public String name;
     public String mailAddress;
 
-    public MailUser(Admin admin) {
-    }
-
-    public MailUser(Employee employee) {
-    }
-
     public MailUser(Visitor visitor) {
     }
 

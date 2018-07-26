@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.iotek.hrmgr.mapper.VisitorMapper">
     <!--用不上-->
-    <!--<resultMap type="com.iotek.hrmgr.entity.Visitor" id="visitorRM">
+    <!--<resultMap type="Visitor" id="visitorRM">
         <id column="visitor_id" property="visitorId" />
         <result column="name" property="name" />
         <result column="password" property="password" />
@@ -14,27 +14,27 @@
         <result column="address" property="address" />
     </resultMap>-->
 
-    <select id="selectVisitorById" parameterType="int" resultType="com.iotek.hrmgr.entity.Visitor">
+    <select id="selectVisitorById" parameterType="int" resultType="Visitor">
         SELECT * FROM VISITORS WHERE VISITOR_ID=#{visitorId}
     </select>
 
-    <select id="selectVisitorByName" parameterType="String" resultType="com.iotek.hrmgr.entity.Visitor">
+    <select id="selectVisitorByName" parameterType="String" resultType="Visitor">
         SELECT * FROM VISITORS WHERE NAME=#{name}
     </select>
 
-    <select id="selectVisitorByEmail" parameterType="String" resultType="com.iotek.hrmgr.entity.Visitor">
+    <select id="selectVisitorByEmail" parameterType="String" resultType="Visitor">
         SELECT * FROM VISITORS WHERE NAME=#{name}
     </select>
 
-    <select id="selectAllVisitors" parameterType="int" resultType="com.iotek.hrmgr.entity.Visitor">
+    <select id="selectAllVisitors" parameterType="int" resultType="Visitor">
         SELECT * FROM VISITORS ORDER BY VISITOR_ID
     </select>
 
-    <insert id="insertVisitor" parameterType="com.iotek.hrmgr.entity.Visitor">
+    <insert id="insertVisitor" parameterType="Visitor">
         INSERT INTO VISITORS (NAME,PASSWORD,AGE,GENDER,EMAIL,PHONE,ADDRESS) VALUES (#{name},#{password},#{age},#{gender},#{email},#{phone},#{address})
     </insert>
 
-    <update id="updateVisitor" parameterType="com.iotek.hrmgr.entity.Visitor">
+    <update id="updateVisitor" parameterType="Visitor">
         UPDATE VISITORS SET (NAME,PASSWORD,AGE,GENDER,EMAIL,PHONE,ADDRESS) VALUES (#{name},#{password},#{age},#{gender},#{email},#{phone},#{address})
     </update>
 

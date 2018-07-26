@@ -12,6 +12,7 @@ public class Visitor {
     private String phone;
     private String address;
     private String role;
+    private String permission;
 
     public Visitor() {
     }
@@ -80,6 +81,22 @@ public class Visitor {
         this.address = address;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getPermission() {
+        return permission;
+    }
+
+    public void setPermission(String permission) {
+        this.permission = permission;
+    }
+
     @Override
     public String toString() {
         return "Visitor{" +
@@ -91,10 +108,8 @@ public class Visitor {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
+                ", role='" + role + '\'' +
+                ", permission='" + permission + '\'' +
                 '}';
-    }
-
-    public String getRole() {
-        return role;
     }
 }

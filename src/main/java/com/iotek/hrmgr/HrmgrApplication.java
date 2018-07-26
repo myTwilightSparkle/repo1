@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 
 @EnableCaching
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages="com.iotek.hrmgr")
 public class HrmgrApplication {
 
     public static void main(String[] args) {

@@ -2,7 +2,6 @@ package com.iotek.hrmgr.mapper;
 
 import com.iotek.hrmgr.entity.Visitor;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 @Mapper

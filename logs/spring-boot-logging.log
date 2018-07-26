@@ -1,23 +1,23 @@
-2018-07-24 15:19:18.787  INFO 4832 --- [main] com.iotek.hrmgr.HrmgrApplicationTests    : Starting HrmgrApplicationTests on 0042-PC with PID 4832 (started by Administrator in C:\Users\Administrator\OneDrive\hrmgr)
-2018-07-24 15:19:18.788  INFO 4832 --- [main] com.iotek.hrmgr.HrmgrApplicationTests    : The following profiles are active: dev
+2018-07-24 15:19:18.787  INFO 4832 --- [main] HrmgrApplicationTests    : Starting HrmgrApplicationTests on 0042-PC with PID 4832 (started by Administrator in C:\Users\Administrator\OneDrive\hrmgr)
+2018-07-24 15:19:18.788  INFO 4832 --- [main] HrmgrApplicationTests    : The following profiles are active: dev
 2018-07-24 15:19:21.057 ERROR 4832 --- [main] com.alibaba.druid.filter.FilterManager   : load filter error, filter not found : Slf4jLogFilter
 2018-07-24 15:19:22.404  WARN 4832 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
-2018-07-24 15:19:22.956  INFO 4832 --- [main] com.iotek.hrmgr.HrmgrApplicationTests    : Started HrmgrApplicationTests in 6.856 seconds (JVM running for 9.76)
+2018-07-24 15:19:22.956  INFO 4832 --- [main] HrmgrApplicationTests    : Started HrmgrApplicationTests in 6.856 seconds (JVM running for 9.76)
 2018-07-24 15:19:23.461  INFO 4832 --- [main] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
 2018-07-24 15:19:23.887  INFO 4832 --- [Thread-2] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
-2018-07-24 15:21:34.025  INFO 6232 --- [main] com.iotek.hrmgr.HrmgrApplicationTests    : Starting HrmgrApplicationTests on 0042-PC with PID 6232 (started by Administrator in C:\Users\Administrator\OneDrive\hrmgr)
-2018-07-24 15:21:34.027  INFO 6232 --- [main] com.iotek.hrmgr.HrmgrApplicationTests    : The following profiles are active: dev
+2018-07-24 15:21:34.025  INFO 6232 --- [main] HrmgrApplicationTests    : Starting HrmgrApplicationTests on 0042-PC with PID 6232 (started by Administrator in C:\Users\Administrator\OneDrive\hrmgr)
+2018-07-24 15:21:34.027  INFO 6232 --- [main] HrmgrApplicationTests    : The following profiles are active: dev
 2018-07-24 15:21:37.702  WARN 6232 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
-2018-07-24 15:21:38.470  INFO 6232 --- [main] com.iotek.hrmgr.HrmgrApplicationTests    : Started HrmgrApplicationTests in 7.153 seconds (JVM running for 9.534)
+2018-07-24 15:21:38.470  INFO 6232 --- [main] HrmgrApplicationTests    : Started HrmgrApplicationTests in 7.153 seconds (JVM running for 9.534)
 2018-07-24 15:21:39.072  INFO 6232 --- [main] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
 2018-07-24 15:21:39.389  INFO 6232 --- [Thread-2] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
-2018-07-24 15:24:17.113  INFO 5784 --- [main] com.iotek.hrmgr.HrmgrApplicationTests    : Starting HrmgrApplicationTests on 0042-PC with PID 5784 (started by Administrator in C:\Users\Administrator\OneDrive\hrmgr)
-2018-07-24 15:24:17.116  INFO 5784 --- [main] com.iotek.hrmgr.HrmgrApplicationTests    : The following profiles are active: dev
+2018-07-24 15:24:17.113  INFO 5784 --- [main] HrmgrApplicationTests    : Starting HrmgrApplicationTests on 0042-PC with PID 5784 (started by Administrator in C:\Users\Administrator\OneDrive\hrmgr)
+2018-07-24 15:24:17.116  INFO 5784 --- [main] HrmgrApplicationTests    : The following profiles are active: dev
 2018-07-24 15:24:22.337  WARN 5784 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
-2018-07-24 15:24:24.306  INFO 5784 --- [main] com.iotek.hrmgr.HrmgrApplicationTests    : Started HrmgrApplicationTests in 8.869 seconds (JVM running for 10.648)
-2018-07-24 15:25:22.038  INFO 7612 --- [main] com.iotek.hrmgr.HrmgrApplicationTests    : Starting HrmgrApplicationTests on 0042-PC with PID 7612 (started by Administrator in C:\Users\Administrator\OneDrive\hrmgr)
-2018-07-24 15:25:22.039  INFO 7612 --- [main] com.iotek.hrmgr.HrmgrApplicationTests    : The following profiles are active: dev
+2018-07-24 15:24:24.306  INFO 5784 --- [main] HrmgrApplicationTests    : Started HrmgrApplicationTests in 8.869 seconds (JVM running for 10.648)
+2018-07-24 15:25:22.038  INFO 7612 --- [main] HrmgrApplicationTests    : Starting HrmgrApplicationTests on 0042-PC with PID 7612 (started by Administrator in C:\Users\Administrator\OneDrive\hrmgr)
+2018-07-24 15:25:22.039  INFO 7612 --- [main] HrmgrApplicationTests    : The following profiles are active: dev
 2018-07-24 15:25:31.015  WARN 7612 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
-2018-07-24 15:25:31.671  INFO 7612 --- [main] com.iotek.hrmgr.HrmgrApplicationTests    : Started HrmgrApplicationTests in 11.534 seconds (JVM running for 14.184)
+2018-07-24 15:25:31.671  INFO 7612 --- [main] HrmgrApplicationTests    : Started HrmgrApplicationTests in 11.534 seconds (JVM running for 14.184)
 2018-07-24 15:25:32.559  INFO 7612 --- [main] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
 2018-07-24 15:25:33.229  INFO 7612 --- [Thread-2] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
