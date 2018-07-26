@@ -24,4 +24,4 @@ public interface VisitorMapper {
     public void updateVisitor(Visitor visitor);
 
     public void deleteVisitorById(int id);
-} 
+}

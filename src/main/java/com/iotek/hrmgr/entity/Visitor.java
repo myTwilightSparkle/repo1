@@ -11,6 +11,7 @@ public class Visitor {
     private String email;
     private String phone;
     private String address;
+    private String role;
 
     public Visitor() {
     }
@@ -91,5 +92,9 @@ public class Visitor {
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
                 '}';
+    }
+
+    public String getRole() {
+        return role;
     }
 }

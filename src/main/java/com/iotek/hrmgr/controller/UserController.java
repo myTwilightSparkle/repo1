@@ -20,42 +20,54 @@ public class UserController {
     @Autowired
     VisitorService visitorService;
 
+    /*
+    注册页面
+    */
     @GetMapping("/visitor/new")
     public String visitorSignUpPage(Visitor visitor, HttpSession session, HttpServletRequest request){
         String token = TokenProcessor.getInstance().makeToken();
         session.setAttribute("loginToken", token);
-        return "/visitor/signUp";
+        return "/signUp";
     }
 
+    /*
+    注册
+    */
     @PutMapping("/visitor")
     public String visitorSignUp(Visitor visitor, HttpSession session, HttpServletRequest request){
         boolean b = isRelogin(request);
         if (b){
             request.setAttribute("res","重复提交");
-            return "/visitor/visitorLogin";
+            return "/signUp";
         }
         request.getSession().removeAttribute("loginToken");
 
         //md5加密
-        try {
+        /*try {
             MessageDigest md = MessageDigest.getInstance("md5");
             visitor.setPassword(md.digest(visitor.getPassword().getBytes()).toString());
         } catch (NoSuchAlgorithmException e) {
-        }
+        }*/
         Visitor visitorR = visitorService.signUp(visitor);
         if (visitorR == null){
-            return "/visitor/signUp";
+            return "/signUp";
         }
         return visitorLogin(visitorR, session, request);
     }
 
+    /*
+    登录页面
+     */
     @GetMapping("/sessions/new")
     public String visitorLoginPage(HttpSession session) {
         String token = TokenProcessor.getInstance().makeToken();
         session.setAttribute("loginToken", token);
-        return "/visitor/visitorLogin";
+        return "/login/visitorLogin";
     }
 
+    /*
+    登录
+     */
     @PostMapping("/sessions/create")
     public String visitorLogin(Visitor visitor, HttpSession session, HttpServletRequest request) {
         boolean b = isRelogin(request);
@@ -66,21 +78,24 @@ public class UserController {
         request.getSession().removeAttribute("loginToken");
 
         //md5加密
-        try {
+        /*try {
             MessageDigest md = MessageDigest.getInstance("md5");
             visitor.setPassword(md.digest(visitor.getPassword().getBytes()).toString());
         } catch (NoSuchAlgorithmException e) {
-        }
+        }*/
         Visitor visitorR = visitorService.login(visitor);
         if (visitorR == null) {
             request.setAttribute("res","登录失败");
-            return "visitor/visitorLogin";
+            return "/login/visitorLogin";
         }
         session.setAttribute("visitor", visitorR);
-        return "success";
+        return "/visitor/visitorHome";
     }
 
 
+    /*
+    判断重复提交
+     */
     private boolean isRelogin(HttpServletRequest request) {
         String client_token = request.getParameter("loginToken");
         System.out.println("client_token: "+client_token);

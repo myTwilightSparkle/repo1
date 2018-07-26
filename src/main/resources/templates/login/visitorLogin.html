@@ -25,7 +25,7 @@
         <input type="text" placeholder="用户名" name="name"/><br>
         <input type="password" placeholder="密码" name="password"/><br>
         <input type="hidden" th:value="${session.loginToken}" name="loginToken">
-        <button type="submit">登录</button> <a href="/visitor/new">注册</a>
+        <button type="submit">登录</button>
     </form>
 
     <p th:text="${#httpServletRequest.getAttribute('res')}"></p>

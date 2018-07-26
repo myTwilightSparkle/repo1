@@ -16,21 +16,6 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`db_hrmgr` /*!40100 DEFAULT CHARACTER SE
 
 USE `db_hrmgr`;
 
-/*Table structure for table `admins` */
-
-DROP TABLE IF EXISTS `admins`;
-
-CREATE TABLE `admins` (
-  `admin_id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) NOT NULL,
-  `password` varchar(50) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  PRIMARY KEY (`admin_id`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `admins` */
-
 /*Table structure for table `depts` */
 
 DROP TABLE IF EXISTS `depts`;
@@ -50,20 +35,14 @@ DROP TABLE IF EXISTS `employees`;
 CREATE TABLE `employees` (
   `employee_id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
-  `password` varchar(50) NOT NULL,
-  `age` int(5) NOT NULL,
-  `gender` varchar(5) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `phone` varchar(20) NOT NULL,
   `address` varchar(100) NOT NULL,
   `dept_id` int(10) DEFAULT NULL,
   `resigned` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`employee_id`),
-  UNIQUE KEY `email` (`email`),
-  UNIQUE KEY `phone` (`phone`),
   KEY `dept_id` (`dept_id`),
-  KEY `age` (`age`),
   KEY `resigned` (`resigned`),
+  KEY `name` (`name`),
+  CONSTRAINT `employees_ibfk_2` FOREIGN KEY (`name`) REFERENCES `visitors` (`name`),
   CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`dept_id`) REFERENCES `depts` (`dept_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -109,13 +88,12 @@ CREATE TABLE `positions` (
   `position_id` int(10) NOT NULL AUTO_INCREMENT COMMENT '职位id',
   `name` varchar(50) NOT NULL,
   `dept_id` int(10) NOT NULL,
-  `employee_id` int(10) DEFAULT NULL COMMENT '当前担任者',
+  `is_vacance` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否空缺,默认空缺',
   PRIMARY KEY (`position_id`),
   KEY `name` (`name`),
   KEY `dept_id` (`dept_id`),
-  KEY `employee_id` (`employee_id`),
-  CONSTRAINT `positions_ibfk_1` FOREIGN KEY (`dept_id`) REFERENCES `depts` (`dept_id`),
-  CONSTRAINT `positions_ibfk_2` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`)
+  KEY `employee_id` (`is_vacance`),
+  CONSTRAINT `positions_ibfk_1` FOREIGN KEY (`dept_id`) REFERENCES `depts` (`dept_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `positions` */
@@ -202,15 +180,21 @@ CREATE TABLE `visitors` (
   `email` varchar(50) NOT NULL,
   `phone` varchar(20) NOT NULL,
   `address` varchar(100) NOT NULL,
+  `role` varchar(100) NOT NULL DEFAULT 'visitor' COMMENT 'admin employee visitor',
+  `permission` varchar(100) NOT NULL DEFAULT 'visitor' COMMENT 'admin employee visitor',
+  `position_id` int(10) DEFAULT NULL,
   PRIMARY KEY (`visitor_id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `phone` (`phone`),
-  KEY `age` (`age`)
+  UNIQUE KEY `name` (`name`),
+  KEY `age` (`age`),
+  KEY `position_id` (`position_id`),
+  CONSTRAINT `visitors_ibfk_1` FOREIGN KEY (`position_id`) REFERENCES `positions` (`position_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 /*Data for the table `visitors` */
 
-insert  into `visitors`(`visitor_id`,`name`,`password`,`age`,`gender`,`email`,`phone`,`address`) values (1,'aa','aa',10,'man','xx','123456','xx'),(11,'bb','aa',10,'man','xx1','1234561','xx'),(12,'cc','aa',10,'man','xx2','1234562','xx'),(13,'dd','aa',10,'man','xx3','1234563','xx'),(14,'ee','aa',10,'man','xx4','1234564','xx'),(15,'ff','aa',10,'man','xx5','1234565','xx'),(16,'gg','aa',10,'man','xx6','1234566','xx'),(17,'hh','aa',10,'man','xx7','1234567','xx'),(18,'ii','aa',10,'man','xx8','1234568','xx'),(19,'jj','aa',10,'man','xx9','1234569','xx');
+insert  into `visitors`(`visitor_id`,`name`,`password`,`age`,`gender`,`email`,`phone`,`address`,`role`,`permission`,`position_id`) values (1,'aa','aa',10,'man','xx','123456','xx','visitor','visitor',NULL),(11,'bb','aa',10,'man','xx1','1234561','xx','visitor','visitor',NULL),(12,'cc','aa',10,'man','xx2','1234562','xx','visitor','visitor',NULL),(13,'dd','aa',10,'man','xx3','1234563','xx','visitor','visitor',NULL),(14,'ee','aa',10,'man','xx4','1234564','xx','visitor','visitor',NULL),(15,'ff','aa',10,'man','xx5','1234565','xx','visitor','visitor',NULL),(16,'gg','aa',10,'man','xx6','1234566','xx','visitor','visitor',NULL),(17,'hh','aa',10,'man','xx7','1234567','xx','visitor','visitor',NULL),(18,'ii','aa',10,'man','xx8','1234568','xx','visitor','visitor',NULL),(19,'jj','aa',10,'man','xx9','1234569','xx','visitor','visitor',NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
