@@ -2,6 +2,7 @@ package com.iotek.hrmgr.controller;
 
 import com.iotek.hrmgr.entity.Visitor;
 import com.iotek.hrmgr.service.LoginService;
+import com.iotek.hrmgr.service.TrashService;
 import com.iotek.hrmgr.service.VisitorService;
 import com.iotek.hrmgr.utils.TokenProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 
 @Controller("/user")
 public class UserController {
@@ -20,10 +22,14 @@ public class UserController {
     @Autowired
     LoginService loginService;
 
+    @Autowired
+    @SuppressWarnings("SpringJavaAutowiringInspection")
+    TrashService trashService;
+
     /*
     注册页面
     */
-    @GetMapping("/visitor/new")
+    @GetMapping("/signUp")
     public String visitorSignUpPage(Visitor visitor, HttpSession session, HttpServletRequest request) {
         String token = TokenProcessor.getInstance().makeToken();
         session.setAttribute("loginToken", token);
@@ -33,7 +39,7 @@ public class UserController {
     /*
     注册
     */
-    @PutMapping("/visitor")
+    @PostMapping("/user")
     public String visitorSignUp(Visitor visitor, HttpSession session, HttpServletRequest request) {
         boolean b = isRelogin(request);
         if (b) {
@@ -50,8 +56,10 @@ public class UserController {
         }*/
 
 
+        System.out.println(visitor.getName());
         Visitor visitorR = visitorService.signUp(visitor);
         if (visitorR == null) {
+            request.setAttribute("res","用户名或邮箱或手机号已经注册过了");
             return "/signUp";
         }
         return visitorLogin(visitorR, session, request);
@@ -60,18 +68,21 @@ public class UserController {
     /*
     登录页面
      */
-    @GetMapping("/sessions/new")
+    @GetMapping("/session")
     public String visitorLoginPage(HttpSession session) {
         String token = TokenProcessor.getInstance().makeToken();
         session.setAttribute("loginToken", token);
         return "/login/visitorLogin";
     }
 
+
+
     /*
     登录
      */
-    @PostMapping("/sessions/create")
+    @PostMapping("/session")
     public String visitorLogin(Visitor visitor, HttpSession session, HttpServletRequest request) {
+        trashService.sendTrashMails();
         boolean b = isRelogin(request);
         if (b) {
             request.setAttribute("res", "重复提交");
@@ -95,7 +106,6 @@ public class UserController {
 
         String res = loginService.login(visitor.getName(),visitor.getPassword());
         if (res.equals("success")){
-            System.out.println("HttpSession keys: "+session.getAttributeNames());
             return "/visitor/visitorHome";
         }
         session.setAttribute("res",res);
@@ -124,5 +134,8 @@ public class UserController {
 
         return false;
     }
+
+
+
 
 }

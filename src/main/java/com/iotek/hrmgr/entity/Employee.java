@@ -4,12 +4,11 @@ package com.iotek.hrmgr.entity;
 * */
 public class Employee {
     private int employeeId;
-    private String name;
+    private String realname;
+    private String email;
     private String address;
     private Dept dept;
     private boolean resigned;
-    private String role;
-    private String permission;
 
     public Employee() {
     }
@@ -22,28 +21,20 @@ public class Employee {
         this.employeeId = employeeId;
     }
 
-    public String getName() {
-        return name;
+    public String getRealname() {
+        return realname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRealname(String realname) {
+        this.realname = realname;
     }
 
-    public String getRole() {
-        return role;
+    public String getEmail() {
+        return email;
     }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getPermission() {
-        return permission;
-    }
-
-    public void setPermission(String permission) {
-        this.permission = permission;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getAddress() {
@@ -74,12 +65,11 @@ public class Employee {
     public String toString() {
         return "Employee{" +
                 "employeeId=" + employeeId +
-                ", name='" + name + '\'' +
+                ", realname='" + realname + '\'' +
+                ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
                 ", dept=" + dept +
                 ", resigned=" + resigned +
-                ", role='" + role + '\'' +
-                ", permission='" + permission + '\'' +
                 '}';
     }
 }

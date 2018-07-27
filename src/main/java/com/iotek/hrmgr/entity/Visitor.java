@@ -102,7 +102,6 @@ public class Visitor {
         return "Visitor{" +
                 "visitorId=" + visitorId +
                 ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
                 ", age=" + age +
                 ", gender='" + gender + '\'' +
                 ", email='" + email + '\'' +

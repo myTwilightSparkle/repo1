@@ -15,6 +15,8 @@ public interface VisitorMapper {
 
     public List<Visitor> selectAllVisitors();
 
+    public Visitor selectVisitorByPhone(String phone);
+
     public void insertVisitor(Visitor visitor);
 
     /*

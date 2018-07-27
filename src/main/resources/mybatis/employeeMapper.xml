@@ -3,23 +3,59 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.iotek.hrmgr.mapper.EmployeeMapper">
     <resultMap type="com.iotek.hrmgr.entity.Employee" id="employeeRM">
-        <id column="visitor_id" property="employeeId" />
-        <result column="name" property="name" />
-        <result column="password" property="password" />
-        <result column="age" property="age" />
-        <result column="gender" property="gender" />
-        <result column="email" property="email" />
-        <result column="phone" property="phone" />
-        <result column="address" property="address" />
+        <id column="employee_id" property="employeeId"/>
+        <result column="realname" property="realname"/>
+        <result column="email" property="email"/>
+        <result column="address" property="address"/>
+        <result column="resigned" property="resigned"/>
 
-        <!--<result column="dept_id" property="dept"/>
-        <association property="dept" javaType="one.to.one.Teacher">
+        <result column="dept_id" property="dept"/>
+        <association property="dept" javaType="Dept">
             <id column="dept_id" property="deptId"/>
             <result column="name" property="name"/>
-        </association>-->
-
+        </association>
     </resultMap>
 
+    <!-- 根据id查询员工 -->
+    <select id="selectEmployeeById" parameterType="int" resultType="employeeRM">
+        SELECT * FROM EMPLOYEES WHERE EMPLOYEE_ID=#{id} AND RESIGNED=0
+    </select>
 
+    <!-- 根据name查询员工 -->
+    <select id="selectEmployeeByRealname" parameterType="String" resultType="employeeRM">
+        SELECT * FROM EMPLOYEES WHERE REALNAME=#{realname} AND RESIGNED=0
+    </select>
 
+    <!-- 查询部门没走员工 -->
+    <select id="selectEmployeesByDept" parameterType="com.iotek.hrmgr.entity.Dept" resultType="employeeRM">
+        SELECT * FROM EMPLOYEES WHERE DEPT_ID=#{dept.deptId} AND RESIGNED=0
+    </select>
+
+    <!-- 查询全部没走员工 -->
+    <select id="selectAllEmployees" resultType="employeeRM">
+        SELECT * FROM EMPLOYEES WHERE RESIGNED=0
+    </select>
+
+    <!-- 查询全部员工 -->
+    <select id="selectHistoricalEmployees" resultType="employeeRM">
+        SELECT * FROM EMPLOYEES
+    </select>
+
+    <insert id="insertEmployee" parameterType="com.iotek.hrmgr.entity.Visitor">
+        INSERT INTO EMPLOYEES (REALNAME,EMAIL,ADDRESS,DEPT_ID,RESIGNED) VALUES(#{realname},#{email},#{address},#{dept.deptId},#{resigned})
+    </insert>
+
+    <update id="updateEmployee" parameterType="com.iotek.hrmgr.entity.Visitor">
+        UPDATE EMPLOYEES SET (REALNAME,EMAIL,ADDRESS,DEPT_ID,RESIGNED)
+        REALNAME=#{realname},
+        EMAIL=#{email},
+        ADDRESS=#{address},
+        DEPT_ID=#{dept.deptId},
+        RESIGNED=#{resigned}
+        WHERE EMPLOYEE_ID=#{employeeId}
+    </update>
+
+    <delete id="deleteEmployeeById" parameterType="int">
+        DELETE FROM EMPLOYEES WHERE EMPLOYEE_ID=#{id}
+    </delete>
 </mapper>

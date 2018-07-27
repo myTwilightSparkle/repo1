@@ -12,56 +12,27 @@ import java.util.List;
 @Mapper
 public interface EmployeeMapper {
     /*
-    根据id查询没走员工
+    根据id查询员工
      */
     public Employee selectEmployeeById(int id);
 
     /*
-    根据name查询没走员工
+    根据name查询员工
      */
-    public Employee selectEmployeeByName(String name);
-
-    /*
-    根据email查询没走员工
-     */
-    public Employee selectEmployeeByEmail(String email);
+    public Employee selectEmployeeByRealname(String realname);
 
     /*
     查询部门没走员工
-    分页
      */
-    //public List<Employee> selectEmployeesByDept(Dept dept, int currentPage);
+    public List<Employee> selectEmployeesByDept(Dept dept);
 
     /*
     查询全部没走员工
-    分页
      */
-    public List<Employee> selectAllEmployees(int currentPage);
+    public List<Employee> selectAllEmployees();
 
     /*
-    根据id查询已走员工
-     */
-    public Employee selectHistoricalEmployeeById(int id);
-
-    /*
-    根据name查询已走员工
-     */
-    public Employee selectHistoricalEmployeeByName(String name);
-
-    /*
-    根据email查询已走员工
-     */
-    public Employee selectHistoricalEmployeeByEmail(String email);
-
-    /*
-    查询部门已走员工
-    分页
-     */
-    public List<Employee> selectHistoricalEmployeesByDept(Dept dept, int currentPage);
-
-    /*
-    查询全部已走员工
-    分页
+    查询全部员工
      */
     public List<Employee> selectHistoricalEmployees();
 

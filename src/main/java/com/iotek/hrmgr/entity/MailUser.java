@@ -8,6 +8,13 @@ public class MailUser {
     public String mailAddress;
 
     public MailUser(Visitor visitor) {
+        this.name = visitor.getName();
+        this.mailAddress = visitor.getEmail();
+    }
+
+    public MailUser (Employee employee){
+        this.name = employee.getRealname();
+        this.mailAddress = employee.getEmail();
     }
 
     public MailUser (String name, String mailAddress){

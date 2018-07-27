@@ -2,7 +2,6 @@ package com.iotek.hrmgr.config;
 
 
 import com.alibaba.druid.pool.DruidDataSource;
-import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +16,5 @@ public class DruidConfig {
     public DataSource druid(){
         return new DruidDataSource();
     }
-
 
 }

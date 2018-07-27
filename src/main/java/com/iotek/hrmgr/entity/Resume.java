@@ -5,7 +5,7 @@ package com.iotek.hrmgr.entity;
 public class Resume {
     private int resumeId;
     private Visitor visitor;
-    private Position objective;
+    private String objective;
     private String content;
 
     public Resume() {
@@ -27,11 +27,11 @@ public class Resume {
         this.visitor = visitor;
     }
 
-    public Position getObjective() {
+    public String getObjective() {
         return objective;
     }
 
-    public void setObjective(Position objective) {
+    public void setObjective(String objective) {
         this.objective = objective;
     }
 

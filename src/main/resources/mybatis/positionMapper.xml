@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iotek.hrmgr.mapper.PositionMapper">
+
+    <select id="selectDeptById" parameterType="int" resultType="Position">
+        SELECT * FROM POSITIONS WHERE POSITION_ID=#{id}
+    </select>
+
+    <select id="selectAllPositions" resultType="Position">
+        SELECT * FROM POSITIONS
+    </select>
+
+    <insert id="insertPosition" parameterType="Position">
+        INSERT INTO POSITIONS (NAME) VALUES (#{name}) WHERE POSITION_ID=#{positionId}
+    </insert>
+
+    <update id="updatePosition" parameterType="Position">
+        UPDATE POSITIONS SET NAME=#{name} WHERE POSITION_ID=#{positionId}
+    </update>
+
+    <delete id="deletePositionById" parameterType="Position">
+        DELETE FROM POSITIONS WHERE POSITION_ID=#{positionId}
+    </delete>
+</mapper>

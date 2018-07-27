@@ -1,39 +1,59 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http//www.thymeleaf.org">
-<head>
-    <meta charset="UTF8">
-    <title>游客登录</title>
+<link>
 
-    <script type="text/javascript">
-        var isCommitted = false;
-        function submit(){
-            if(isCommitted==false){
-                isCommitted = true;
-                return true;
-            }else{
-                return false;
-            }
-        }
-    </script>
+
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="common.js"></script>
+    <meta charset="UTF8">
+    <title>游客注册</title>
 
 </head>
 <body>
 <center>
     <h3>游客注册</h3><br>
-    <div>
-        <form action="/visitor" method="put" onsubmit="return submit()">
-            <input type="text" placeholder="用户名" name="name"/><br>
-            <input type="password" placeholder="密码" name="password"/><br>
-            <input type="password" placeholder="重复密码" name="password"/><br>
-            <input type="email" name="email"/><br>
+    <div class="form-group" style="padding-bottom: 8px;">
+        <form action="/user" method="post" onsubmit="return checkRegister()" role="form">
+            <input class="form-control" type="text" placeholder="用户名" name="name" id="name" onblur="checkName()"
+                   required="true"/>
+            <p id="nameError" style="margin-bottom: -2px;color: red;">
+            </p>
+            <input class="form-control" type="password" placeholder="密码" name="password" id="password"
+                   onblur="checkPassword()" required="true"/>
+            <p id="passwordError" style="margin-bottom: -2px;color: red;">
+            </p>
+            <input class="form-control" type="password" placeholder="重复密码" id="rePassword" onblur="checkrePassword()"
+                   required="true"/>
+            <p id="rePasswordError" style="margin-bottom: -2px;color: red;">
+            </p>
+            <input class="form-control" type="email" placeholder="email" id="email" name="email" onblur="checkEmail()"
+                   required="true"/>
+            <p id="emailError" style="margin-bottom: -2px;color: red;">
+            </p>
             年龄<select name="age">
-                <option th:each="i:${#numbers.sequence(15,75,1)}" th:value="${i}" th:text="${i}"/>
-            </select><br>
+            <option th:each="i:${#numbers.sequence(15,85,1)}" th:value="${i}" th:text="${i}"/>
+        </select><br>
+            <input type="radio" name="gender" value="男"/>男
+            <input type="radio" name="gender" value="女"/>女
+
+            <br>
+            <input class="form-control" id="telephone" name="phone" onblur="checkPhone()" placeholder="手机" type="text"/>
+
+            <p id="telephoneError" style="margin-bottom: -2px;color: red;">
+
+            </p>
+
+            <input class="form-control" type="text" name="address" placeholder="地址"/>
+
             <input type="hidden" th:value="${session.loginToken}" name="loginToken">
-            <button type="submit">注册</button>
+            <br>
+            <input class="btn btn-primary btn-block" type="submit" value="注册"/>
         </form>
         <p th:text="${#httpServletRequest.getAttribute('res')}"></p>
     </div>
 </center>
 </body>
+
 </html>

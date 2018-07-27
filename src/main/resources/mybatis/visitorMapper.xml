@@ -15,7 +15,7 @@
     </resultMap>-->
 
     <select id="selectVisitorById" parameterType="int" resultType="Visitor">
-        SELECT * FROM VISITORS WHERE VISITOR_ID=#{visitorId}
+        SELECT * FROM VISITORS WHERE VISITOR_ID=#{id}
     </select>
 
     <select id="selectVisitorByName" parameterType="String" resultType="Visitor">
@@ -23,7 +23,11 @@
     </select>
 
     <select id="selectVisitorByEmail" parameterType="String" resultType="Visitor">
-        SELECT * FROM VISITORS WHERE NAME=#{name}
+        SELECT * FROM VISITORS WHERE EMAIL=#{email}
+    </select>
+
+    <select id="selectVisitorByPhone" parameterType="String" resultType="Visitor">
+        SELECT * FROM VISITORS WHERE PHONE=#{phone}
     </select>
 
     <select id="selectAllVisitors" parameterType="int" resultType="Visitor">
@@ -35,11 +39,19 @@
     </insert>
 
     <update id="updateVisitor" parameterType="Visitor">
-        UPDATE VISITORS SET (NAME,PASSWORD,AGE,GENDER,EMAIL,PHONE,ADDRESS) VALUES (#{name},#{password},#{age},#{gender},#{email},#{phone},#{address})
+        UPDATE VISITORS SET
+        NAME=#{name},
+        PASSWORD=#{password},
+        AGE=#{age},
+        GENDER=#{gender},
+        EMAIL=#{email},
+        PHONE=#{phone},
+        ADDRESS=#{address}
+        WHERE VISITOR_ID=#{visitorId}
     </update>
 
     <delete id="deleteVisitorById" parameterType="int">
-        DELETE FROM VISITORS WHERE VISITOR_ID=#{visitorId}
+        DELETE FROM VISITORS WHERE VISITOR_ID=#{id}
     </delete>
 
 </mapper>

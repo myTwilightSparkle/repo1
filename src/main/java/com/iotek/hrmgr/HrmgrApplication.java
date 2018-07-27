@@ -3,9 +3,11 @@ package com.iotek.hrmgr;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 @EnableCaching
-@SpringBootApplication(scanBasePackages="com.iotek.hrmgr")
+@EnableAsync
+@SpringBootApplication
 public class HrmgrApplication {
 
     public static void main(String[] args) {

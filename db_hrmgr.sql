@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v12.08 (64 bit)
-MySQL - 5.7.3-m13 : Database - db_hrmgr
+MySQL - 5.1.49-community : Database - db_hrmgr
 *********************************************************************
 */
 
@@ -23,7 +23,8 @@ DROP TABLE IF EXISTS `depts`;
 CREATE TABLE `depts` (
   `dept_id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
-  PRIMARY KEY (`dept_id`)
+  PRIMARY KEY (`dept_id`),
+  UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `depts` */
@@ -87,22 +88,16 @@ DROP TABLE IF EXISTS `positions`;
 CREATE TABLE `positions` (
   `position_id` int(10) NOT NULL AUTO_INCREMENT COMMENT '职位id',
   `name` varchar(50) NOT NULL,
-  `dept_id` int(10) NOT NULL,
-  `is_vacance` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否空缺,默认空缺',
-  PRIMARY KEY (`position_id`),
-  KEY `name` (`name`),
-  KEY `dept_id` (`dept_id`),
-  KEY `employee_id` (`is_vacance`),
-  CONSTRAINT `positions_ibfk_1` FOREIGN KEY (`dept_id`) REFERENCES `depts` (`dept_id`)
+  PRIMARY KEY (`position_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `positions` */
 
-/*Table structure for table `recruitment` */
+/*Table structure for table `recruitments` */
 
-DROP TABLE IF EXISTS `recruitment`;
+DROP TABLE IF EXISTS `recruitments`;
 
-CREATE TABLE `recruitment` (
+CREATE TABLE `recruitments` (
   `recruit_id` int(10) NOT NULL AUTO_INCREMENT,
   `position_id` int(10) NOT NULL,
   `number` int(5) NOT NULL DEFAULT '1',
@@ -110,10 +105,27 @@ CREATE TABLE `recruitment` (
   `pbdate` date NOT NULL COMMENT '发布日期',
   PRIMARY KEY (`recruit_id`),
   KEY `position_id` (`position_id`),
-  CONSTRAINT `recruitment_ibfk_1` FOREIGN KEY (`position_id`) REFERENCES `positions` (`position_id`)
+  CONSTRAINT `recruitments_ibfk_1` FOREIGN KEY (`position_id`) REFERENCES `positions` (`position_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `recruitment` */
+/*Data for the table `recruitments` */
+
+/*Table structure for table `resumes` */
+
+DROP TABLE IF EXISTS `resumes`;
+
+CREATE TABLE `resumes` (
+  `resume_id` int(20) NOT NULL AUTO_INCREMENT,
+  `visitor_id` int(10) NOT NULL,
+  `position` varchar(20) NOT NULL,
+  `content` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`resume_id`),
+  KEY `visitor_id` (`visitor_id`),
+  KEY `position` (`position`),
+  CONSTRAINT `resumes_ibfk_1` FOREIGN KEY (`visitor_id`) REFERENCES `visitors` (`visitor_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `resumes` */
 
 /*Table structure for table `rwd_pnt` */
 
@@ -175,22 +187,22 @@ CREATE TABLE `visitors` (
   `visitor_id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `age` int(5) NOT NULL,
-  `gender` varchar(5) NOT NULL,
+  `age` int(5) DEFAULT NULL,
+  `gender` varchar(5) DEFAULT NULL,
   `email` varchar(50) NOT NULL,
-  `phone` varchar(20) NOT NULL,
-  `address` varchar(100) NOT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
   `role` varchar(100) NOT NULL DEFAULT 'visitor' COMMENT 'admin employee visitor',
   `permission` varchar(100) NOT NULL DEFAULT 'visitor' COMMENT 'admin employee visitor',
   `position_id` int(10) DEFAULT NULL,
   PRIMARY KEY (`visitor_id`),
   UNIQUE KEY `email` (`email`),
-  UNIQUE KEY `phone` (`phone`),
   UNIQUE KEY `name` (`name`),
+  UNIQUE KEY `phone` (`phone`),
   KEY `age` (`age`),
   KEY `position_id` (`position_id`),
   CONSTRAINT `visitors_ibfk_1` FOREIGN KEY (`position_id`) REFERENCES `positions` (`position_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 /*Data for the table `visitors` */
 
