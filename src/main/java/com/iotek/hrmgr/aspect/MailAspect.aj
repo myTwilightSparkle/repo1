@@ -23,6 +23,9 @@ public class MailAspect {
     }
 
 
+    /*
+    注册邮件
+     */
     @Async
     @Around("signUpInfo()")
     public void process(ProceedingJoinPoint point) throws Throwable {
@@ -42,7 +45,7 @@ public class MailAspect {
         System.out.println("Aspect: arg: "+visitor);
 
         String fromUsername = "2570945863@qq.com";
-        String template = "*{@{toName}注册成功}#{请随便使用\n@{currentDate}}";
+        String template = "*{@{toName}注册成功}#{感谢注册\n@{currentDate}}";
         String[] params = null;
         SimpleMailMessage message = new MailMessageGenerator(new MailUser(visitor), fromUsername, template, params).genMessage();
 
