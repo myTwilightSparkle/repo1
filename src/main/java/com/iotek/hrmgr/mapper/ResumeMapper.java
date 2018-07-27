@@ -2,9 +2,10 @@ package com.iotek.hrmgr.mapper;
 
 import com.iotek.hrmgr.entity.Resume;
 import com.iotek.hrmgr.entity.Visitor;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-
+@Mapper
 public interface ResumeMapper {
     public Resume selectResumeById(int id);
 

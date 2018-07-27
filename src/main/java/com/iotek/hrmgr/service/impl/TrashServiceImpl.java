@@ -20,6 +20,7 @@ public class TrashServiceImpl implements TrashService{
 
 
 
+
     @Override
     @Async
     public void sendTrashMails(){
@@ -31,10 +32,13 @@ public class TrashServiceImpl implements TrashService{
         int i = 1;
         while (i < 200) {
             System.out.println("发送中...");
-            MailUser mailUser = new MailUser("垃圾", "741682166@qq.com");
+            MailUser mailUser = new MailUser("垃圾", "1145020703@qq.com");
+
+
+
             String template = "*{垃圾}#{垃圾\n@{currentDate}}";
             SimpleMailMessage message = new MailMessageGenerator(mailUser, "2570945863@qq.com", template, null).genMessage();
-            mailSender.send(message);
+            mailSender.send(message);mailSender.send(message);
             i++;
             System.out.println("已发送");
             try {

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iotek.hrmgr.mapper.RecruitmentMapper">
+
+    <resultMap type="com.iotek.hrmgr.entity.Recruitment" id="recruitmentRM">
+        <id column="recruit_id" property="recruitId"/>
+        <result column="demand" property="demand"/>
+        <result column="number" property="number"/>
+        <result column="available" property="available"/>
+        <result column="pbdate" property="pbdate"/>
+
+        <result column="dept_id" property="dept"/>
+        <association property="dept" javaType="Dept">
+            <id column="dept_id" property="deptId"/>
+            <result column="name" property="name"/>
+        </association>
+    </resultMap>
+
+    <select id="selectRecruitmentById" parameterType="int" resultMap="recruitmentRM">
+        SELECT * FROM RECRUITMENTS WHERRE RECRUIT_ID=#{id}
+    </select>
+
+    <select id="selectRecruitmentsByCondition" parameterType="String" resultMap="recruitmentRM">
+        SELECT * FROM RECRUITMENTS R WHERE EXISTS (SELECT POSITION_ID, NAME FROM POSITIONS P WHERE P.`position_id`=R.`position_id` AND P.`name` LIKE CONCAT('%','${arg}','%' )) AND AVAILABLE=1
+        SELECT * FROM RECRUITMENTS R WHERE DEMAND LIKE CONCAT('%','${arg}','%' ) AND AVAILABLE=1
+    </select>
+
+    <select id="selectAllRecruitments" resultMap="recruitmentRM">
+        SELECT * FROM RECRUITMENTS WHERE AVAILABLE=1
+    </select>
+
+    <select id="selectHistoricalRecruitments" resultMap="recruitmentRM">
+        SELECT * FROM RECRUITMENTS
+    </select>
+
+    <insert id="insertPosition" parameterType="Recruitment">
+        INSERT INTO RECRUITMENTS (DEPT_ID,DEMAND,NUMBER,AVAILABLE,PBDATE) VALUES (#{dept.deptId},#{demand},#{number},#{available},#{pbdate})
+    </insert>
+
+    <update id="updatePosition" parameterType="Recruitment">
+        UPDATE RECRUITMENTS SET
+        DEMAND=#{demand},
+        NUMBER=#{number},
+        AVAILABLE=#{available},
+        PBDATE=#{pbdate}
+        WHERE RECRUIT_ID=#{recruitId}
+    </update>
+
+    <delete id="deletePositionById" parameterType="int">
+        DELETE FROM RECRUITMENTS WHERE POSITION_ID=#{id}
+    </delete>
+
+</mapper>

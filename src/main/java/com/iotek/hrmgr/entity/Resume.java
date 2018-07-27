@@ -5,7 +5,7 @@ package com.iotek.hrmgr.entity;
 public class Resume {
     private int resumeId;
     private Visitor visitor;
-    private String objective;
+    private String position;
     private String content;
 
     public Resume() {
@@ -27,12 +27,12 @@ public class Resume {
         this.visitor = visitor;
     }
 
-    public String getObjective() {
-        return objective;
+    public String getPosition() {
+        return position;
     }
 
-    public void setObjective(String objective) {
-        this.objective = objective;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     public String getContent() {
@@ -48,7 +48,7 @@ public class Resume {
         return "Resume{" +
                 "resumeId=" + resumeId +
                 ", visitor=" + visitor +
-                ", objective=" + objective +
+                ", position=" + position +
                 ", content='" + content + '\'' +
                 '}';
     }

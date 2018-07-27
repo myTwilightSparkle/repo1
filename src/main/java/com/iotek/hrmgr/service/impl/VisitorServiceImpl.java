@@ -6,7 +6,9 @@ import com.iotek.hrmgr.mapper.VisitorMapper;
 import com.iotek.hrmgr.entity.Visitor;
 import com.iotek.hrmgr.service.VisitorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.http.HttpRequest;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,6 @@ public class VisitorServiceImpl implements VisitorService {
 
     int pageSize = 15;
 
-    @Async
     @Transactional
     @Cacheable(value = "visitorPage", key = "#currentPage")
     public PageInfo<Visitor> getAllVisitors(int currentPage) {
@@ -60,7 +61,6 @@ public class VisitorServiceImpl implements VisitorService {
     }
 /*
     //老登录
-    @Async
     public Visitor login(Visitor visitor){
         Visitor visitorR = getVisitor(visitor);
         if (visitorR.getPassword().equals(visitor.getPassword())){
@@ -72,10 +72,9 @@ public class VisitorServiceImpl implements VisitorService {
 
     //注册
     @Transactional
+    @CacheEvict(value="visitorPage")
     public Visitor signUp(Visitor visitor) {
         Visitor visitorR = getVisitor(visitor);
-        System.out.println("visitor" + visitor);
-        System.out.println("visitorR" + visitorR);
         if (visitorR != null) {
             return null;
         }
@@ -84,11 +83,17 @@ public class VisitorServiceImpl implements VisitorService {
     }
 
     //修改
+    @Caching(evict = {
+            @CacheEvict(value="visitor",key="#visitor.toString()"),
+            @CacheEvict(value="visitorPage") })
     public void updateVisitor(Visitor visitor) {
         visitorMapper.updateVisitor(visitor);
     }
 
     //删除
+    @Caching(evict = {
+            @CacheEvict(value="visitor",key="#visitor.toString()"),
+            @CacheEvict(value="visitorPage") })
     public void deleteVisitor(int id) {
         visitorMapper.deleteVisitorById(id);
     }

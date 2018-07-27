@@ -6,7 +6,6 @@ public class Employee {
     private int employeeId;
     private String realname;
     private String email;
-    private String address;
     private Dept dept;
     private boolean resigned;
 
@@ -37,14 +36,6 @@ public class Employee {
         this.email = email;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public Dept getDept() {
         return dept;
     }
@@ -67,7 +58,6 @@ public class Employee {
                 "employeeId=" + employeeId +
                 ", realname='" + realname + '\'' +
                 ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
                 ", dept=" + dept +
                 ", resigned=" + resigned +
                 '}';

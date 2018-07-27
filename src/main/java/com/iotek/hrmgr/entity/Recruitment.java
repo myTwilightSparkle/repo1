@@ -7,7 +7,8 @@ import java.util.Date;
 * */
 public class Recruitment {
     private int recruitId;
-    private Position position;//无id的Position
+    private Position position;
+    private String demand;
     private int number;//招几个
     private boolean available;//是否有效
     private Date pbdate;//发布日期
@@ -55,11 +56,20 @@ public class Recruitment {
         this.pbdate = pbdate;
     }
 
+    public String getDemand() {
+        return demand;
+    }
+
+    public void setDemand(String demand) {
+        this.demand = demand;
+    }
+
     @Override
     public String toString() {
         return "Recruitment{" +
                 "recruitId=" + recruitId +
                 ", position=" + position +
+                ", demand='" + demand + '\'' +
                 ", number=" + number +
                 ", available=" + available +
                 ", pbdate=" + pbdate +

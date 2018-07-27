@@ -12,14 +12,14 @@
     </select>
 
     <insert id="insertPosition" parameterType="Position">
-        INSERT INTO POSITIONS (NAME) VALUES (#{name}) WHERE POSITION_ID=#{positionId}
+        INSERT INTO POSITIONS (NAME) VALUES (#{name})
     </insert>
 
     <update id="updatePosition" parameterType="Position">
         UPDATE POSITIONS SET NAME=#{name} WHERE POSITION_ID=#{positionId}
     </update>
 
-    <delete id="deletePositionById" parameterType="Position">
-        DELETE FROM POSITIONS WHERE POSITION_ID=#{positionId}
+    <delete id="deletePositionById" parameterType="int">
+        DELETE FROM POSITIONS WHERE POSITION_ID=#{id}
     </delete>
 </mapper>

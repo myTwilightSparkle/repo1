@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iotek.hrmgr.mapper.ResumeMapper">
+
+    <resultMap type="com.iotek.hrmgr.entity.Resume" id="resumeRM">
+        <id column="resume_id" property="resumeId"/>
+        <result column="position" property="position"/>
+        <result column="content" property="content"/>
+
+        <result column="visitor_id" property="visitorId"/>
+        <association property="visitor" javaType="Visitor">
+            <id column="visitor_id" property="visitorId"/>
+            <result column="name" property="name"/>
+            <result column="age" property="age"/>
+            <result column="gender" property="gender"/>
+            <result column="email" property="email"/>
+            <result column="phone" property="phone"/>
+            <result column="address" property="address"/>
+        </association>
+    </resultMap>
+
+    <select id="selectResumeById" parameterType="int">
+        SELECT * FROM RESUMES WHERE RESUME_ID=#{id}
+    </select>
+
+    <select id="selectResumesByPositionstr" parameterType="String">
+        SELECT * FROM RESUMES WHERE POSITION LIKE CONCAT('%','${positionstr}','%' )
+    </select>
+
+    <select id="selectResumesByVisitor" parameterType="Visitor">
+        SELECT * FROM RESUMES WHERE VISITOR_ID=#{visitorId}
+    </select>
+
+    <insert id="insertResume" parameterType="Resume">
+        INSERT INTO RESUMES (VISITOR_ID, POSITION, CONTENT) VALUES (#{visitorId},#{position},#{content})
+    </insert>
+
+    <update id="updateResume" parameterType="Resume">
+        UPDATE RESUMES SET
+        POSITION=#{position},
+        CONTENT=#{content}
+        WHERE RESUME_ID=#{resumeId}
+    </update>
+
+    <delete id="deleteResumeById" parameterType="int">
+        DELETE FROM RESUMES WHERE RESUME_ID=#{resumeId}
+    </delete>
+
+</mapper>
