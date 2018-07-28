@@ -8,27 +8,31 @@
         <result column="position" property="position"/>
         <result column="content" property="content"/>
 
-        <result column="visitor_id" property="visitorId"/>
-        <association property="visitor" javaType="Visitor">
+        <result column="visitor_id" property="visitor.visitorId"/>
+        <association property="visitor" column="visitor_id" javaType="Visitor" select="getVisitor">
             <id column="visitor_id" property="visitorId"/>
-            <result column="name" property="name"/>
-            <result column="age" property="age"/>
-            <result column="gender" property="gender"/>
-            <result column="email" property="email"/>
-            <result column="phone" property="phone"/>
-            <result column="address" property="address"/>
+            <result column="name" property="visitor.name"/>
+            <result column="age" property="visitor.age"/>
+            <result column="gender" property="visitor.gender"/>
+            <result column="email" property="visitor.email"/>
+            <result column="phone" property="visitor.phone"/>
+            <result column="address" property="visitor.address"/>
         </association>
     </resultMap>
 
-    <select id="selectResumeById" parameterType="int">
+    <select id="getVisitor" resultType="Visitor" parameterType="int">
+        SELECT * FROM VISITORS WHERE VISITOR_ID=#{id}
+    </select>
+
+    <select id="selectResumeById" parameterType="int" resultMap="resumeRM">
         SELECT * FROM RESUMES WHERE RESUME_ID=#{id}
     </select>
 
-    <select id="selectResumesByPositionstr" parameterType="String">
+    <select id="selectResumesByPositionstr" parameterType="String" resultMap="resumeRM">
         SELECT * FROM RESUMES WHERE POSITION LIKE CONCAT('%','${positionstr}','%' )
     </select>
 
-    <select id="selectResumesByVisitor" parameterType="Visitor">
+    <select id="selectResumesByVisitor" parameterType="Visitor" resultMap="resumeRM">
         SELECT * FROM RESUMES WHERE VISITOR_ID=#{visitorId}
     </select>
 

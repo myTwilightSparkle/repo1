@@ -28,14 +28,10 @@ public class RecruitmentServiceImpl implements RecruitmentService {
     @Transactional
     @Cacheable(value = "recruitPage", key = "#arg")
     @Override
-    public PageInfo<Recruitment> searchRecruitments(String arg, int currentPage) {
-        PageHelper.startPage(currentPage, pageSize);
+    public List<Recruitment> searchRecruitments(String arg, int currentPage) {
+        PageHelper.offsetPage(currentPage, pageSize);
         List<Recruitment> rs = recruitmentMapper.selectRecruitmentsByCondition(arg);
-        PageInfo<Recruitment> pageInfo = new PageInfo<Recruitment>(rs);
-        pageInfo.setSize(pageSize);
-        pageInfo.setPageNum(currentPage);
-        System.out.println("page size: "+pageInfo.getPageSize()+",page number: "+pageInfo.getPageNum());
-        return pageInfo;
+        return rs;
     }
 
     @Override

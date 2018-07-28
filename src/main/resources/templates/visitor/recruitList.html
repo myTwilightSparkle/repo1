@@ -10,7 +10,7 @@
 <body>
 <div th:include="~{/visitor/visitorHome::norm}"></div>
 
-<div th:each="recruit : ${pageInfo.list}" style="background-color: #ddeeee; width: 50%; margin: 2px; padding: auto; text-align: center; margin-left: auto; margin-right: auto">
+<div th:each="recruit : ${recruits}" style="background-color: #ddeeee; width: 80%; margin: 2px; padding: auto; text-align: center; margin-left: auto; margin-right: auto">
     <p>
         招聘职位：<span th:text="${recruit.position.name}"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp招聘人数：<span th:text="${recruit.number}"></span>
     </p>

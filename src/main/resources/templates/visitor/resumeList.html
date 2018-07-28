@@ -10,5 +10,24 @@
 <body>
 <div th:include="~{/visitor/visitorHome::norm}"></div>
 
+<a href="#" class="left">上一页</a>&nbsp&nbsp<a href="#" class="right">下一页</a>
+<div th:each="resume : ${resumes}" style="background-color: #ddeeee; width: 80%; margin: 2px; padding: auto; text-align: center; margin-left: auto; margin-right: auto">
+
+    <a href="#" class="btn-toolbar">编辑</a>&nbsp<a href="#" class="btn-danger">删除</a><br>
+
+    <p>
+        名字：<span th:text="${resume.visitor.name}"></span>
+        &nbsp
+        <span th:text="${resume.visitor.age}"></span>岁
+        &nbsp
+        <span th:text="${resume.visitor.gender}"></span>
+    </p>
+    <p>
+        目标职位：<span th:text="${resume.position}"></span>
+    </p>
+    <p>正文：<span th:text="${resume.content}"></span></p>
+</div>
+
+
 </body>
 </html>

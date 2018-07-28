@@ -14,7 +14,7 @@ public interface ResumeService {
 
     public Resume findResumeById(int id);
 
-    public List<Resume> findOnesResume(Visitor visitor);
+    public List<Resume> findOnesResume(Visitor visitor, int currentPage);
 
-    public List<Resume> searchResume(String arg);
+    public List<Resume> searchResume(String arg, int currentPage);
 }

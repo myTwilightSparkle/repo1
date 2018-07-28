@@ -1,5 +1,8 @@
 package com.iotek.hrmgr.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.iotek.hrmgr.entity.Resume;
 import com.iotek.hrmgr.entity.Visitor;
 import com.iotek.hrmgr.mapper.ResumeMapper;
@@ -13,7 +16,10 @@ import java.util.List;
 @Service("ResumeService")
 public class ResumeServiceImpl implements ResumeService {
 
+    int pageSize = 15;
+
     @Autowired
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     private ResumeMapper resumeMapper;
 
     @Override
@@ -42,13 +48,17 @@ public class ResumeServiceImpl implements ResumeService {
 
     @Override
     @Transactional
-    public List<Resume> findOnesResume(Visitor visitor) {
-        return resumeMapper.selectResumesByVisitor(visitor);
+    public List<Resume> findOnesResume(Visitor visitor, int currentPage) {
+        PageHelper.offsetPage(currentPage, pageSize);
+        List rs = resumeMapper.selectResumesByVisitor(visitor);
+        return rs;
     }
 
     @Override
     @Transactional
-    public List<Resume> searchResume(String arg) {
-        return resumeMapper.selectResumesByPositionstr(arg);
+    public List<Resume> searchResume(String arg, int currentPage) {
+        PageHelper.offsetPage(currentPage, pageSize);
+        List rs = resumeMapper.selectResumesByPositionstr(arg);
+        return rs;
     }
 }
