@@ -3,8 +3,12 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.iotek.hrmgr.mapper.PositionMapper">
 
-    <select id="selectDeptById" parameterType="int" resultType="Position">
+    <select id="selectPositionById" parameterType="int" resultType="Position">
         SELECT * FROM POSITIONS WHERE POSITION_ID=#{id}
+    </select>
+
+    <select id="selectPositionsByDept" parameterType="Dept" resultType="Position">
+        SELECT * FROM POSITIONS WHERE DEPT_ID=#{deptId}
     </select>
 
     <select id="selectAllPositions" resultType="Position">
@@ -12,7 +16,7 @@
     </select>
 
     <insert id="insertPosition" parameterType="Position">
-        INSERT INTO POSITIONS (NAME) VALUES (#{name})
+        INSERT INTO POSITIONS (NAME,DEPT_ID) VALUES (#{name},#{deptId})
     </insert>
 
     <update id="updatePosition" parameterType="Position">

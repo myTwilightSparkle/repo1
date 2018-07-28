@@ -1,15 +1,14 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http//www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-    <meta charset="UTF8">
-    <title>主页</title>
+    <meta charset="UTF-8">
+    <title>我的简历</title>
 </head>
 <body>
-<center>
-<a href="/session" class="btn btn-default" role="button">登录</a> <a href="/signUpPage" class="btn btn-default" role="button">注册</a>
-</center>
+<div th:include="~{/visitor/visitorHome::norm}"></div>
+
 </body>
 </html>

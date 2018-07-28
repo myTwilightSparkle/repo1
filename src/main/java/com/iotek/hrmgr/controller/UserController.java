@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.security.auth.Subject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -31,10 +30,11 @@ public class UserController {
     /*
     注册页面
     */
-    @GetMapping("/signUp")
+    @GetMapping("/signUpPage")
     public String visitorSignUpPage(Visitor visitor, HttpSession session, HttpServletRequest request) {
         String token = TokenProcessor.getInstance().makeToken();
         session.setAttribute("loginToken", token);
+        System.out.println("send token:"+session.getAttribute("loginToken"));
         return "/signUp";
     }
 
@@ -62,7 +62,7 @@ public class UserController {
             request.setAttribute("res","用户名或邮箱或手机号已经注册过了");
             return "/signUp";
         }
-        return "index";
+        return "/index";
     }
 
     /*
@@ -72,6 +72,7 @@ public class UserController {
     public String visitorLoginPage(HttpSession session) {
         String token = TokenProcessor.getInstance().makeToken();
         session.setAttribute("loginToken", token);
+        System.out.println("发送token:"+session.getAttribute("loginToken"));
         return "/login/visitorLogin";
     }
 
@@ -86,7 +87,8 @@ public class UserController {
         boolean b = isRelogin(request);
         if (b) {
             request.setAttribute("res", "重复提交");
-            return "/login/visitorLogin";
+            System.out.println("重复提交");
+            //return "/login/visitorLogin";
         }
         request.getSession().removeAttribute("loginToken");
 /*
@@ -116,17 +118,43 @@ public class UserController {
         return "/login/visitorLogin";
     }
 
+    /*
+    visitorHome
+     */
+    @GetMapping("/visitorHome")
+    public String visitorHome(){
+        return "/visitor/visitorHome";
+    }
+
+    /*
+    employeeHome
+     */
+    @GetMapping("employeeHome")
+    public String employeeHome(){
+        return "/employee/employeeHome";
+    }
+
+    /*
+    adminHome
+     */
+    @GetMapping("adminHome")
+    public String adminHome(){
+        return "/admin/adminHome";
+    }
 
     /*
     判断重复提交
      */
     private boolean isRelogin(HttpServletRequest request) {
+        System.out.println("check relogin");
         String client_token = request.getParameter("loginToken");
+        System.out.println("client token: "+client_token);
         if (client_token == null || client_token == "") {
             return true;
         }
 
         String server_token = (String) request.getSession().getAttribute("loginToken");
+        System.out.println("server token: "+server_token);
         if (server_token == null) {
             return true;
         }
@@ -136,7 +164,6 @@ public class UserController {
 
         return false;
     }
-
 
 
     /*

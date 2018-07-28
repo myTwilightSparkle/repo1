@@ -1,6 +1,7 @@
 package com.iotek.hrmgr.entity;
 
 import java.util.Date;
+import java.util.Objects;
 
 /*
 * 一条招聘信息
@@ -74,5 +75,19 @@ public class Recruitment {
                 ", available=" + available +
                 ", pbdate=" + pbdate +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Recruitment that = (Recruitment) o;
+        return recruitId == that.recruitId;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(recruitId);
     }
 }

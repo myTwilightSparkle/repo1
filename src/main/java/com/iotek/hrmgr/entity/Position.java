@@ -5,6 +5,7 @@ package com.iotek.hrmgr.entity;
 public class Position {
     private int positionId;
     private String name;
+    private int deptId;
 
     public Position() {
     }
@@ -23,6 +24,14 @@ public class Position {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(int deptId) {
+        this.deptId = deptId;
     }
 
     @Override

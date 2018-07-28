@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http//www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>招聘信息</title>
+</head>
+<body>
+<div th:include="~{/visitor/visitorHome::norm}"></div>
+
+<div th:each="recruit : ${pageInfo.list}" style="background-color: #ddeeee; width: 50%; margin: 2px; padding: auto; text-align: center; margin-left: auto; margin-right: auto">
+    <p>
+        招聘职位：<span th:text="${recruit.position.name}"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp招聘人数：<span th:text="${recruit.number}"></span>
+    </p>
+    <p>
+        条件需求：<span th:text="${recruit.demand}"></span>
+    </p>
+    发布日期：<span th:text="${recruit.pbdate}"></span><br><br>
+</div>
+
+
+</body>
+</html>

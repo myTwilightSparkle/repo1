@@ -12,6 +12,8 @@ public interface PositionMapper {
 
     public List<Position> selectAllPositions();
 
+    public List<Position> selectPositionsByDept(Dept dept);
+
     public void insertPosition(Position position);
 
     //需要id

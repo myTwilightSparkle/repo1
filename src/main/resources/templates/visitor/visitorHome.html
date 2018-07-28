@@ -7,18 +7,16 @@
     <meta charset="UTF8">
     <title>欢迎</title>
 </head>
-<body>
-<center>
-</center>
+<body th:fragment="norm">
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">我的主页</a>
+            <a class="navbar-brand" href="/visitorHome">我的主页</a>
         </div>
         <div>
             <ul class="nav navbar-nav">
                 <li><a href="#">我的简历</a></li>
-                <li><a href="#">创建简历</a></li>
+                <li><a href="#">投递简历</a></li>
                 <li><a href="/logOut">登出</a></li>
                 <!-- 留个样本
                 <li class="dropdown">
@@ -35,12 +33,17 @@
     </div>
 </nav>
 
-<div>
-    <h5>招聘信息</h5>
-    <form action="/recruiment" method="get">
-        <input type="text" placeholder="请输入查询信息" name=""/><input type="submit" text="搜索"/>
+
+<div class="input-group col-md-3" style="margin-top:0px; positon:relative">
+    <form action="/recruitment" method="get">
+    <input type="text" class="form-control" placeholder="请输入招聘关键字" name="arg"/>
+        <span class="input-group-btn">
+               <button class="btn btn-info btn-search" type="submit">查找招聘</button>
+            </span>
     </form>
 </div>
+
+
 
 </body>
 </html>
