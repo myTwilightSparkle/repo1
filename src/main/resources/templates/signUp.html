@@ -15,7 +15,7 @@
 <center>
     <h3>游客注册</h3><br>
     <div class="form-group" style="padding-bottom: 8px;">
-        <form action="/user" method="post" onsubmit="return checkRegister()" role="form">
+        <form action="/signUp" method="post" onsubmit="return checkRegister()" role="form">
             <input class="form-control" type="text" placeholder="用户名" name="name" id="name" onblur="checkName()"
                    required="true"/>
             <p id="nameError" style="margin-bottom: -2px;color: red;">
@@ -47,7 +47,7 @@
 
             <input class="form-control" type="text" name="address" placeholder="地址"/>
 
-            <input type="hidden" th:value="${session.loginToken}" name="loginToken">
+            <input type="hidden" th:value="${loginToken}" name="loginToken">
             <br>
             <input class="btn btn-primary btn-block" type="submit" value="注册"/>
         </form>

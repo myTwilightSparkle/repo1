@@ -8,13 +8,15 @@ import com.iotek.hrmgr.utils.TokenProcessor;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import sun.text.normalizer.NormalizerBase;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
-@Controller("/user")
+@Controller
 public class UserController {
 
     @Autowired
@@ -31,18 +33,18 @@ public class UserController {
     注册页面
     */
     @GetMapping("/signUpPage")
-    public String visitorSignUpPage(Visitor visitor, HttpSession session, HttpServletRequest request) {
+    public String visitorSignUpPage(Visitor visitor, Model model, HttpServletRequest request) {
         String token = TokenProcessor.getInstance().makeToken();
-        session.setAttribute("loginToken", token);
-        System.out.println("send token:"+session.getAttribute("loginToken"));
+        model.addAttribute("loginToken", token);
+        request.getSession().setAttribute("loginToken",token);
         return "/signUp";
     }
 
     /*
     注册
     */
-    @PostMapping("/user")
-    public String visitorSignUp(Visitor visitor, HttpSession session, HttpServletRequest request) {
+    @PostMapping("/signUp")
+    public String visitorSignUp(Visitor visitor, HttpServletRequest request) {
         boolean b = isRelogin(request);
         if (b) {
             request.setAttribute("res", "重复提交");
@@ -69,10 +71,10 @@ public class UserController {
     登录页面
      */
     @GetMapping("/session")
-    public String visitorLoginPage(HttpSession session) {
+    public String visitorLoginPage(Model model, HttpSession session) {
         String token = TokenProcessor.getInstance().makeToken();
-        session.setAttribute("loginToken", token);
-        System.out.println("发送token:"+session.getAttribute("loginToken"));
+        model.addAttribute("loginToken", token);
+        session.setAttribute("loginToken",token);
         return "/login/visitorLogin";
     }
 
@@ -82,7 +84,7 @@ public class UserController {
     登录
      */
     @PostMapping("/session")
-    public String visitorLogin(Visitor visitor, HttpSession session, HttpServletRequest request) {
+    public String visitorLogin(Visitor visitor, Model model, HttpServletRequest request) {
         //trashService.sendTrashMails();
         boolean b = isRelogin(request);
         if (b) {
@@ -114,8 +116,8 @@ public class UserController {
                 return "/employee/employeeHome";
             return "/visitor/visitorHome";
         }
-        session.setAttribute("res",res);
-        return "/login/visitorLogin";
+        model.addAttribute("res",res);
+        return visitorLoginPage(model,request.getSession());
     }
 
     /*
@@ -146,15 +148,12 @@ public class UserController {
     判断重复提交
      */
     private boolean isRelogin(HttpServletRequest request) {
-        System.out.println("check relogin");
         String client_token = request.getParameter("loginToken");
-        System.out.println("client token: "+client_token);
         if (client_token == null || client_token == "") {
             return true;
         }
 
         String server_token = (String) request.getSession().getAttribute("loginToken");
-        System.out.println("server token: "+server_token);
         if (server_token == null) {
             return true;
         }

@@ -4,30 +4,30 @@ import com.iotek.hrmgr.entity.MailUser;
 import com.iotek.hrmgr.entity.Visitor;
 import com.iotek.hrmgr.utils.MailMessageGenerator;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-@Component
 @Aspect
+@Component
 public class MailAspect {
 
     @Autowired
     JavaMailSender javaMailSender;
 
-    @Pointcut("within(com.iotek.hrmgr.controller.UserController+) && execution(* com.iotek.hrmgr.controller.UserController.visitorSignUp())")
-    public void signUpInfo() {
-    }
+    /*@Pointcut("within(com.iotek.hrmgr.service.impl.VisitorServiceImpl+) && execution(* com.iotek.hrmgr.service.impl.VisitorServiceImpl.signUp())")
+    public void signUp(){}*/
 
 
     /*
     注册邮件
      */
     @Async
-    @Around("signUpInfo()")
+    @Around("execution(* com.iotek.hrmgr.controller.UserController.visitorSignUp(com.iotek.hrmgr.entity.Visitor,javax.servlet.http.HttpServletRequest))")
     public void process(ProceedingJoinPoint point) throws Throwable {
         System.out.println("@Around：执行目标方法之前...");
 

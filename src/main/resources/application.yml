@@ -22,6 +22,9 @@ spring:
     filters: stat,wall
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
     useGlobalDataSourceStat: true
+  aop:
+    auto: true
+    proxy-target-class: false
 
 mybatis:
   typeAliasesPackage: com.iotek.hrmgr.entity
@@ -33,3 +36,4 @@ mybatis:
 thymeleaf:
     cache: false
     mode: LEGACYHTML5
+

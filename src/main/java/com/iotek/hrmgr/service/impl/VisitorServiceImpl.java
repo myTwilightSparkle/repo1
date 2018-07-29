@@ -75,6 +75,7 @@ public class VisitorServiceImpl implements VisitorService {
     @CacheEvict(value="visitorPage")
     public Visitor signUp(Visitor visitor) {
         Visitor visitorR = getVisitor(visitor);
+        System.out.println(visitor!=null);
         if (visitorR != null) {
             return null;
         }

@@ -13,7 +13,6 @@ public class LoginServiceImpl implements LoginService {
     @Transactional
     public String login(String username, String password) {
         Subject subject = SecurityUtils.getSubject();
-
         if(!username.equals(subject.getPrincipal())||!subject.isAuthenticated()){
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
             try {
@@ -32,7 +31,7 @@ public class LoginServiceImpl implements LoginService {
                 return eae.getMessage();
             }catch (Exception e) {
                 //出现其他异常
-                return e.getMessage();
+                return "用户名或密码错误";
             }
         }
 
@@ -40,7 +39,7 @@ public class LoginServiceImpl implements LoginService {
         System.out.println("DefaultSubjectContext_AUTHENTICATED_SESSION_KEY: " + subject.getSession().getAttribute("org.apache.shiro.subject.support.DefaultSubjectContext_AUTHENTICATED_SESSION_KEY"));
         System.out.println("HttpServletSession.HOST_SESSION_KEY: " + subject.getSession().getAttribute("org.apache.shiro.web.session.HttpServletSession.HOST_SESSION_KEY"));
 
-        //天上飘彩霞,地上开红花,这个key就是用户名
+        //这个就是用户名
         System.out.println("DefaultSubjectContext_PRINCIPALS_SESSION_KEY: " + subject.getSession().getAttribute("org.apache.shiro.subject.support.DefaultSubjectContext_PRINCIPALS_SESSION_KEY"));*/
 
         return "success";
