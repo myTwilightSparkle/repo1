@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http//www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <title>管理员主页</title>
 </head>
-<body>
+<body th:fragment="navi">
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -15,10 +15,10 @@
         </div>
         <div>
             <ul class="nav navbar-nav">
-                <li><a href="#">SVN</a></li>
                 <li><a href="#">员工</a></li>
                 <li><a href="#">部门</a></li>
                 <li><a href="#">出勤</a></li>
+                <li><a href="/resume">简历</a></li>
                 <li><a href="#">面试</a></li>
                 <li><a href="#">培训</a></li>
                 <li><a href="#">奖惩</a></li>
@@ -32,5 +32,7 @@
         </div>
     </div>
 </nav>
+<p/>
+
 </body>
 </html>

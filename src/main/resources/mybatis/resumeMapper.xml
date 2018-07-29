@@ -36,8 +36,12 @@
         SELECT * FROM RESUMES WHERE VISITOR_ID=#{visitorId}
     </select>
 
+    <select id="selectAllResumes" resultMap="resumeRM">
+        SELECT * FROM RESUMES
+    </select>
+
     <insert id="insertResume" parameterType="Resume">
-        INSERT INTO RESUMES (VISITOR_ID, POSITION, CONTENT) VALUES (#{visitorId},#{position},#{content})
+        INSERT INTO RESUMES (VISITOR_ID, POSITION, CONTENT) VALUES (#{visitor.visitorId},#{position},#{content})
     </insert>
 
     <update id="updateResume" parameterType="Resume">

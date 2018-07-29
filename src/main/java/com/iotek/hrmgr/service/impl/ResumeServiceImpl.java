@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.iotek.hrmgr.entity.Resume;
 import com.iotek.hrmgr.entity.Visitor;
 import com.iotek.hrmgr.mapper.ResumeMapper;
+import com.iotek.hrmgr.mapper.VisitorMapper;
 import com.iotek.hrmgr.service.ResumeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,9 +23,22 @@ public class ResumeServiceImpl implements ResumeService {
     @SuppressWarnings("SpringJavaAutowiringInspection")
     private ResumeMapper resumeMapper;
 
+    @Autowired
+    @SuppressWarnings("SpringJavaAutowiringInspection")
+    private VisitorMapper visitorMapper;
+
     @Override
     @Transactional
-    public void createResume(Resume resume) {
+    public void createResume(Resume resume, String username) {
+        Visitor visitor = visitorMapper.selectVisitorByName(username);
+        resume.setVisitor(visitor);
+        if(resume.getPosition()==null){
+            resume.setPosition("空");
+        }
+        if(resume.getContent()==null){
+            resume.setContent("空");
+        }
+        System.out.println(resume);
         resumeMapper.insertResume(resume);
     }
 
@@ -36,8 +50,8 @@ public class ResumeServiceImpl implements ResumeService {
 
     @Override
     @Transactional
-    public void deleteResume(Resume resume) {
-        resumeMapper.deleteResumeById(resume.getResumeId());
+    public void deleteResume(int resumeId) {
+        resumeMapper.deleteResumeById(resumeId);
     }
 
     @Override
@@ -60,5 +74,10 @@ public class ResumeServiceImpl implements ResumeService {
         PageHelper.offsetPage(currentPage, pageSize);
         List rs = resumeMapper.selectResumesByPositionstr(arg);
         return rs;
+    }
+
+    @Override
+    public List<Resume> getResumes() {
+        return resumeMapper.selectAllResumes();
     }
 }

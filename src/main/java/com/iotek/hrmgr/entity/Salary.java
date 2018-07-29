@@ -9,6 +9,8 @@ public class Salary {
     private int salaryId;
     private Employee employee;
     private BigDecimal salary;
+    private BigDecimal bonus;
+    private BigDecimal rwdPnt;
     private Date date;
     private boolean haspaid;
 
@@ -39,6 +41,22 @@ public class Salary {
         this.salary = salary;
     }
 
+    public BigDecimal getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(BigDecimal bonus) {
+        this.bonus = bonus;
+    }
+
+    public BigDecimal getRwdPnt() {
+        return rwdPnt;
+    }
+
+    public void setRwdPnt(BigDecimal rwdPnt) {
+        this.rwdPnt = rwdPnt;
+    }
+
     public Date getDate() {
         return date;
     }
@@ -61,6 +79,8 @@ public class Salary {
                 "salaryId=" + salaryId +
                 ", employee=" + employee +
                 ", salary=" + salary +
+                ", bonus=" + bonus +
+                ", rwdPnt=" + rwdPnt +
                 ", date=" + date +
                 ", haspaid=" + haspaid +
                 '}';

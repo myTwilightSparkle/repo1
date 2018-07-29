@@ -19,4 +19,6 @@ public interface ResumeMapper {
     public void updateResume(Resume resume);
 
     public void deleteResumeById(int id);
+
+    public List<Resume> selectAllResumes();
 }

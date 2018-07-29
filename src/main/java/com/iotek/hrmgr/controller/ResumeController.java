@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -21,6 +23,12 @@ public class ResumeController {
     private VisitorService visitorService;
 
     @GetMapping("/resume")
+    public String getResumes(Model model){
+        List<Resume> rs = resumeService.getResumes();
+        model.addAttribute("resumes", rs);
+        return "/admin/resumeList";
+    }
+
     public String searchResume(String arg, Model model){
         List<Resume> rs = resumeService.searchResume(arg,1);
         model.addAttribute("resumes",rs);
@@ -35,7 +43,32 @@ public class ResumeController {
         visitor = visitorService.getVisitor(visitor);
         List<Resume> rs = resumeService.findOnesResume(visitor,1);
         model.addAttribute("resumes",rs);
-        System.out.println(rs);
         return "/visitor/resumeList";
+    }
+
+    @GetMapping("/createResume")
+    public String createResumePage(){
+        return "/visitor/resume";
+    }
+
+    @GetMapping("/editResume")
+    public String editResumePage(@RequestParam Integer resumeId, Model model){
+        System.out.println("resumeId = "+resumeId);
+        Resume resume = resumeService.findResumeById(resumeId);
+        model.addAttribute(resume);
+        return "/visitor/resume";
+    }
+
+    @PostMapping("/resume")
+    public String createResume(Resume resume, Model model){
+        String username = (String)SecurityUtils.getSubject().getPrincipal();
+        resumeService.createResume(resume,username);
+        return getMyResume(model);
+    }
+
+    @GetMapping("/deleteResume")
+    public String deleteResume(@RequestParam Integer resumeId, Model model){
+        resumeService.deleteResume(resumeId);
+        return getMyResume(model);
     }
 }

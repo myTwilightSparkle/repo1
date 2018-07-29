@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iotek.hrmgr.mapper.InterviewMapper">
+
+    <resultMap type="com.iotek.hrmgr.entity.Interview" id="interviewRM">
+        <id column="interview_id" property="interviewId"/>
+        <result column="time" property="time"/>
+        <result column="interviewer" property="interviewer"/>
+        <result column="result" property="result"/>
+
+        <result column="visitor_id" property="visitor.visitorId"/>
+        <association property="visitor" column="visitor_id" javaType="Visitor" select="getVisitor">
+            <id column="visitor_id" property="visitorId"/>
+            <result column="name" property="visitor.name"/>
+            <result column="age" property="visitor.age"/>
+            <result column="gender" property="visitor.gender"/>
+            <result column="email" property="visitor.email"/>
+            <result column="phone" property="visitor.phone"/>
+            <result column="address" property="visitor.address"/>
+        </association>
+    </resultMap>
+
+    <select id="getVisitor" resultType="Visitor" parameterType="int">
+        SELECT * FROM VISITORS WHERE VISITOR_ID=#{id}
+    </select>
+
+    <select id="selectInterviewById" parameterType="int" resultMap="interviewRM">
+        SELECT * FROM INTERVIEWS WHERE INTERVIEW_ID=#{id}
+    </select>
+
+    <select id="selectInterviewsByVisitor" parameterType="Visitor" resultMap="interviewRM">
+        SELECT * FROM INTERVIEWS WHERE VISITOR_ID=#{visitorId}
+    </select>
+
+    <select id="selectAllInterviews" resultMap="interviewRM">
+        SELECT * FROM INTERVIEWERS ORDER BY TIME
+    </select>
+
+    <insert id="insertInterview" parameterType="Interview">
+        INSERT INTO INTERVIEWS (VISITOR_ID,TIME,INTERVIEWER,RESULT)
+        VALUES (#{visitor.visitorId}, #{time}, #{interviewer}, #{result})
+    </insert>
+
+    <update id="updateInterview" parameterType="Interview">
+        UPDATE INTERVIEWERS SET
+        VISITOR_ID=#{visitor.visitorId},
+        TIME=#{time},
+        INTERVIEWER=#{interviewer},
+        RESULT=#{result}
+    </update>
+
+    <delete id="deleteInterviewById" parameterType="int">
+        DELETE FROM INTERVIEWS WHERE INTERVIEWER_ID=#{id}
+    </delete>
+
+</mapper>
