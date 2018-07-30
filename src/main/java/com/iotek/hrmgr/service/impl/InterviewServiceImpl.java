@@ -6,6 +6,7 @@ import com.iotek.hrmgr.mapper.InterviewMapper;
 import com.iotek.hrmgr.service.InterviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -32,11 +33,13 @@ public class InterviewServiceImpl implements InterviewService {
         return interviewMapper.selectAllInterviews();
     }
 
+    @Transactional
     @Override
     public void offerInterview(Interview interview) {
         interviewMapper.insertInterview(interview);
     }
 
+    @Transactional
     @Override
     public void acceptInterview(int interviewId) {
         Interview interview = interviewMapper.selectInterviewById(interviewId);
@@ -44,6 +47,7 @@ public class InterviewServiceImpl implements InterviewService {
         interviewMapper.updateInterview(interview);
     }
 
+    @Transactional
     @Override
     public void denyInterview(int interviewId) {
         Interview interview = interviewMapper.selectInterviewById(interviewId);
@@ -51,6 +55,7 @@ public class InterviewServiceImpl implements InterviewService {
         interviewMapper.updateInterview(interview);
     }
 
+    @Transactional
     @Override
     public void rearrangeInterview(int interviewId, Date time, String interviewer) {
         Interview interview = interviewMapper.selectInterviewById(interviewId);

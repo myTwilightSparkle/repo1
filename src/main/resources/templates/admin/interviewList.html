@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http//www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>面试</title>
+</head>
+<body>
+<div th:include="~{/admin/adminHome::navi}"></div>
+<div th:each="intv : ${intvs}" style="background-color: #ddeeee; width: 80%; margin: 2px; padding: auto; text-align: center; margin-left: auto; margin-right: auto">
+
+    <a th:href="@{admin/interviewAccept?interviewId=}+${intv.interviewId}" th:if="${intv.result=='无'}">
+        拒绝
+    </a>
+    <a th:href="@{admin/interviewAccept?interviewId=}+${intv.interviewId}" th:if="${intv.result=='无'}">
+        接受
+    </a>
+
+    <p>
+        名字：<span th:text="${intv.visitor.name}"></span>
+        &nbsp
+        年庚：<span th:text="${intv.visitor.age}"></span>岁
+        &nbsp
+        性：<span th:text="${intv.visitor.gender}"></span>
+    </p>
+    <p>
+        面试时间：<span th:text="${intv.time}"></span>
+    </p>
+    <p>面试官：<span th:text="${intv.interviewer}"></span></p>
+    <p>面试结局：<span th:text="${intv.result}"></span></p>
+</div>
+</body>
+</html>

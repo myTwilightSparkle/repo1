@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http//www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -23,10 +23,17 @@
                 <li><a href="#">培训</a></li>
                 <li><a href="#">奖惩</a></li>
                 <li><a href="#">辞职</a></li>
+                <li><a href="#">一键删库</a></li>
                 <li><a href="/logOut">登出</a></li>
             </ul>
         </div>
     </div>
 </nav>
+
+<a class="btn" href="#" th:if="${late}==''" th:unless="${hasClockin}">上班打卡</a>
+<a class="btn" href="#" th:if="${late}!=''" th:unless="${hasClockin}">迟到打卡</a>
+<a class="btn" href="#" th:if="${early}==''" th:unless="${hasClockin}">中出打卡</a>
+<a class="btn" href="#" th:if="${early}!=''" th:unless="${hasClockin}">下班打卡</a>
+
 </body>
 </html>

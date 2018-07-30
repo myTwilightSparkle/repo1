@@ -1,5 +1,6 @@
 package com.iotek.hrmgr.controller;
 
+import com.iotek.hrmgr.entity.Schedule;
 import com.iotek.hrmgr.entity.Visitor;
 import com.iotek.hrmgr.service.LoginService;
 import com.iotek.hrmgr.service.TrashService;
@@ -174,6 +175,28 @@ public class UserController {
         SecurityUtils.getSubject().logout();
         return "index";
     }
+
+    @GetMapping("/")
+    public String index(Model model){
+
+        if (SecurityUtils.getSubject().hasRole("admin")){
+            return "/admin/adminHome";
+        }
+        if (SecurityUtils.getSubject().hasRole("employee")){
+            //这里要查当天的个人出勤记录
+            model.addAttribute("hasClockin",false);
+            model.addAttribute("hasClockout",false);
+            model.addAttribute("late",new Schedule().getClockin());
+            model.addAttribute("early",new Schedule().getClockout());
+            return "/employee/employeeHome";
+        }
+        if (SecurityUtils.getSubject().hasRole("visitor")){
+            return "/visitor/visitorHome";
+        }
+        return "index";
+
+    }
+
 
 
 }

@@ -3,18 +3,18 @@ package com.iotek.hrmgr.entity;
 import java.util.Date;
 
 public class Interview {
-    private int interviewName;
+    private int interviewId;
     private Visitor visitor;
     private Date time;
     private String interviewer;
     private String result;
 
-    public int getInterviewName() {
-        return interviewName;
+    public int getInterviewId() {
+        return interviewId;
     }
 
-    public void setInterviewName(int interviewName) {
-        this.interviewName = interviewName;
+    public void setInterviewId(int interviewId) {
+        this.interviewId = interviewId;
     }
 
     public Visitor getVisitor() {
@@ -52,7 +52,7 @@ public class Interview {
     @Override
     public String toString() {
         return "Interview{" +
-                "interviewName=" + interviewName +
+                "interviewId=" + interviewId +
                 ", visitor=" + visitor +
                 ", time=" + time +
                 ", interviewer='" + interviewer + '\'' +

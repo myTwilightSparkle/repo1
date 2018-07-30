@@ -34,7 +34,7 @@
     </select>
 
     <select id="selectAllInterviews" resultMap="interviewRM">
-        SELECT * FROM INTERVIEWERS ORDER BY TIME
+        SELECT * FROM INTERVIEWS ORDER BY TIME DESC
     </select>
 
     <insert id="insertInterview" parameterType="Interview">
@@ -43,11 +43,12 @@
     </insert>
 
     <update id="updateInterview" parameterType="Interview">
-        UPDATE INTERVIEWERS SET
+        UPDATE INTERVIEWS SET
         VISITOR_ID=#{visitor.visitorId},
         TIME=#{time},
         INTERVIEWER=#{interviewer},
         RESULT=#{result}
+        WHERE INTERVIEW_ID=#{interviewId}
     </update>
 
     <delete id="deleteInterviewById" parameterType="int">
