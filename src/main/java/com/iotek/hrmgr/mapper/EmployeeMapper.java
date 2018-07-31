@@ -36,8 +36,6 @@ public interface EmployeeMapper {
      */
     public List<Employee> selectHistoricalEmployees();
 
-
-
     public void insertEmployee(Employee employee);
 
     /*

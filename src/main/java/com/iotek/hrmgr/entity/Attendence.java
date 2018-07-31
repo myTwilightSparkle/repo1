@@ -5,43 +5,53 @@ import java.util.Date;
 * 一次出勤的记录
 * */
 public class Attendence {
-    private Employee employee;
-    private Date start;
-    private Date end;
+    private int attendenceId;
+    private Visitor visitor;
+    private Date datetime;
+    private String type;
 
     public Attendence() {
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public int getAttendenceId() {
+        return attendenceId;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setAttendenceId(int attendenceId) {
+        this.attendenceId = attendenceId;
     }
 
-    public Date getStart() {
-        return start;
+    public Visitor getVisitor() {
+        return visitor;
     }
 
-    public void setStart(Date start) {
-        this.start = start;
+    public void setVisitor(Visitor visitor) {
+        this.visitor = visitor;
     }
 
-    public Date getEnd() {
-        return end;
+    public Date getDatetime() {
+        return datetime;
     }
 
-    public void setEnd(Date end) {
-        this.end = end;
+    public void setDatetime(Date datetime) {
+        this.datetime = datetime;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override
     public String toString() {
         return "Attendence{" +
-                "employee=" + employee +
-                ", start=" + start +
-                ", end=" + end +
+                "attendenceId=" + attendenceId +
+                ", visitor=" + visitor +
+                ", datetime=" + datetime +
+                ", type='" + type + '\'' +
                 '}';
     }
 }

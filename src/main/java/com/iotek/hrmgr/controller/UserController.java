@@ -1,17 +1,20 @@
 package com.iotek.hrmgr.controller;
 
 import com.iotek.hrmgr.entity.Schedule;
+import com.iotek.hrmgr.entity.impl.ScheduleImpl;
 import com.iotek.hrmgr.entity.Visitor;
+import com.iotek.hrmgr.entity.impl.ScheduleImpl;
+import com.iotek.hrmgr.service.AttendenceService;
 import com.iotek.hrmgr.service.LoginService;
 import com.iotek.hrmgr.service.TrashService;
 import com.iotek.hrmgr.service.VisitorService;
 import com.iotek.hrmgr.utils.TokenProcessor;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import sun.text.normalizer.NormalizerBase;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -29,6 +32,12 @@ public class UserController {
     @Autowired
     @SuppressWarnings("SpringJavaAutowiringInspection")
     TrashService trashService;
+
+    @Autowired
+    @SuppressWarnings("SpringJavaAutowiringInspection")
+    AttendenceService attendenceService;
+
+    Schedule schedule = new ScheduleImpl();
 
     /*
     注册页面
@@ -111,11 +120,12 @@ public class UserController {
 
         String res = loginService.login(visitor.getName(),visitor.getPassword());
         if (res.equals("success")){
-            if (SecurityUtils.getSubject().hasRole("admin"))
+            /*if (SecurityUtils.getSubject().hasRole("admin"))
                 return "/admin/adminHome";
             if (SecurityUtils.getSubject().hasRole("employee"))
                 return "/employee/employeeHome";
-            return "/visitor/visitorHome";
+            return "/visitor/visitorHome";*/
+            return index(model);
         }
         model.addAttribute("res",res);
         return visitorLoginPage(model,request.getSession());
@@ -182,12 +192,19 @@ public class UserController {
         if (SecurityUtils.getSubject().hasRole("admin")){
             return "/admin/adminHome";
         }
-        if (SecurityUtils.getSubject().hasRole("employee")){
+        Subject subject = SecurityUtils.getSubject();
+        if (subject.hasRole("employee")){
+
+            String name = (String) subject.getPrincipal();
+
             //这里要查当天的个人出勤记录
-            model.addAttribute("hasClockin",false);
-            model.addAttribute("hasClockout",false);
-            model.addAttribute("late",new Schedule().getClockin());
-            model.addAttribute("early",new Schedule().getClockout());
+            boolean b1 = attendenceService.hasClockin(name);
+            boolean b2 = attendenceService.hasClockout(name);
+            model.addAttribute("hasClockin",b1);
+            model.addAttribute("hasClockout",b2);
+
+            model.addAttribute("late",schedule.getClockin("name"));
+            model.addAttribute("early",schedule.getClockout("name"));
             return "/employee/employeeHome";
         }
         if (SecurityUtils.getSubject().hasRole("visitor")){
@@ -196,7 +213,4 @@ public class UserController {
         return "index";
 
     }
-
-
-
 }

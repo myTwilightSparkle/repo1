@@ -17,8 +17,8 @@
             <ul class="nav navbar-nav">
                 <li><a href="#">活儿</a></li>
                 <li><a href="#">工资</a></li>
-                <li><a href="#">请假</a></li>
-                <li><a href="#">加班</a></li>
+                <!--<li><a href="#">请假</a></li>
+                <li><a href="#">加班</a></li>-->
                 <li><a href="#">出勤</a></li>
                 <li><a href="#">培训</a></li>
                 <li><a href="#">奖惩</a></li>
@@ -30,10 +30,9 @@
     </div>
 </nav>
 
-<a class="btn" href="#" th:if="${late}==''" th:unless="${hasClockin}">上班打卡</a>
-<a class="btn" href="#" th:if="${late}!=''" th:unless="${hasClockin}">迟到打卡</a>
-<a class="btn" href="#" th:if="${early}==''" th:unless="${hasClockin}">中出打卡</a>
-<a class="btn" href="#" th:if="${early}!=''" th:unless="${hasClockin}">下班打卡</a>
-
+<a class="btn" href="/clockin" th:if="${late}==''" th:unless="${hasClockin}">上班打卡</a>
+<a class="btn" href="/late" th:if="${late}!=''" th:unless="${hasClockin}">迟到打卡</a>
+<a class="btn" href="/early" th:if="${early}!=''" th:unless="${hasClockout}||!${hasClockin}">早退打卡</a>
+<a class="btn" href="/clockout" th:if="${early}==''" th:unless="${hasClockout}||!${hasClockin}">下班打卡</a>
 </body>
 </html>

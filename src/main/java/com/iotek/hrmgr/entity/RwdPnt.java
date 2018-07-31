@@ -7,10 +7,11 @@ import java.util.Date;
 * */
 public class RwdPnt {
     private int rpId;
-    private Employee employee;
+    private Visitor visitor;
     private Date date;
-    private String cause;
+    private String cause;//原因
     private BigDecimal fine;//正罚负奖
+    private boolean handled;//已经处理 默认false
 
     public RwdPnt() {
     }
@@ -23,12 +24,12 @@ public class RwdPnt {
         this.rpId = rpId;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public Visitor getVisitor() {
+        return visitor;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setVisitor(Visitor visitor) {
+        this.visitor = visitor;
     }
 
     public Date getDate() {
@@ -55,14 +56,23 @@ public class RwdPnt {
         this.fine = fine;
     }
 
+    public boolean isHandled() {
+        return handled;
+    }
+
+    public void setHandled(boolean handled) {
+        this.handled = handled;
+    }
+
     @Override
     public String toString() {
         return "RwdPnt{" +
                 "rpId=" + rpId +
-                ", employee=" + employee +
+                ", visitor=" + visitor +
                 ", date=" + date +
                 ", cause='" + cause + '\'' +
                 ", fine=" + fine +
+                ", handled=" + handled +
                 '}';
     }
 }

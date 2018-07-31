@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iotek.hrmgr.mapper.RwdPntMapper">
+
+    <resultMap type="com.iotek.hrmgr.entity.RwdPnt" id="rpRM">
+        <id column="rp_id" property="rpId"/>
+        <result column="date" jdbcType="TIMESTAMP" property="date"/>
+        <result column="cause" property="cause"/>
+        <result column="fine" property="fine"/>
+        <result column="handled" property="handled"/>
+
+        <result column="visitor_id" property="visitor.visitorId"/>
+        <association property="visitor" column="visitor_id" javaType="Visitor" select="getVisitor">
+            <id column="visitor_id" property="visitorId"/>
+            <result column="name" property="visitor.name"/>
+            <result column="age" property="visitor.age"/>
+            <result column="gender" property="visitor.gender"/>
+            <result column="email" property="visitor.email"/>
+            <result column="phone" property="visitor.phone"/>
+            <result column="address" property="visitor.address"/>
+        </association>
+    </resultMap>
+
+    <select id="getVisitor" resultType="Visitor" parameterType="int">
+        SELECT * FROM VISITORS WHERE VISITOR_ID=#{id}
+    </select>
+
+    <select id="selectRPById" parameterType="int">
+        SELECT * FROM RWD_PNT WHERE RP_ID=#{id}
+    </select>
+
+    <select id="selectNotHandled" resultMap="rpRM">
+        SELECT * FROM RWD_PNT WHERE HANDLED=0
+    </select>
+
+    <select id="selectRwdPntByVisitor" parameterType="Visitor" resultMap="rpRM">
+        SELECT * FROM RWD_PNT WHERE VISITOR_ID=#{visitorId}
+    </select>
+
+    <select id="selectAllRPs" resultMap="rpRM">
+        SELECT * FROM RWDD_PNT
+    </select>
+
+    <insert id="insertRp">
+        INSERT INTO RWD_PNT (VISITOR_ID, DATE, CAUSE) VALUES (#{visitor.visitorId},#{date,#{cause})
+    </insert>
+
+    <update id="updateRwdPnt" parameterType="RwdPnt">
+        UPDATE RWD_PNT SET
+        VISITOR_ID=#{visitor.visitorId},
+        DATE=#{date},
+        CAUSE=#{cause},
+        FINE=#{fine},
+        HANDLED=#{handled} WHERE RP_ID=#{rpId}
+    </update>
+
+    <select id="selectRwdPntByVisitorDate" resultMap="rpRM">
+        SELECT * FROM RWD_PNT WHERE VISITOR_ID=#{visitor.visitorId} AND YEAR(DATE)=#{year} AND MONTH(DATE)=#{month}
+    </select>
+
+</mapper>
